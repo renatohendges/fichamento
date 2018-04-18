@@ -1,13 +1,27 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui" xmlns:f="http://java.sun.com/jsf/core">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta
+		http-equiv="Content-Type"
+		content="text/html; charset=UTF-8" />
 	<h:outputStylesheet name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
-	<script src="resources/js/primefaces.js" type="text/javascript" />
-	<link rel="icon" type="image/jpeg" href="#{resource['imagens/favicon.png']}" />
+	<script
+		src="resources/js/primefaces.js"
+		type="text/javascript" />
+	<link
+		rel="icon"
+		type="image/jpeg"
+		href="#{resource['imagens/favicon.png']}" />
 	<title></title>
 </h:head>
 <h:body>
-	<p:growl id="growl" life="3000" />
+	<p:growl
+		id="growl"
+		life="3000" />
 	<div align="center">
 		<p:layout fullPage="true">
 			<p:layoutUnit position="north">
@@ -19,30 +33,80 @@
 				<ui:insert name="menu">
 					<h:form id="formMenu">
 						<h:panelGroup id="panelMenu">
-							<p:commandButton value="Início" icon="fa fa-fw fa-home" style="width: 100%;" action="#{controladorMenu.setPagina('/apresentacao')}" update=":formConteudo:panelConteudo" />
+							<p:commandButton
+								value="Início"
+								icon="fa fa-fw fa-home"
+								style="width: 100%;"
+								action="#{controladorMenu.setPagina('/apresentacao')}"
+								update=":formConteudo:panelConteudo" />
 							<p:menu id="menu">
-								<p:submenu label="Cadastro" style="background:none;" icon="fa fa-fw fa-edit">
-									<p:menuitem icon="fa fa-fw fa-user" value=" Clientes" rendered="#{controladorAcesso.ativo}" disabled="#{!controladorAcesso.ativo}" action="#{controladorMenu.setPagina('/cadastro/cliente')}" update=":formConteudo:panelConteudo" />
-									<p:menuitem icon="fa fa-fw fa-car" value="Veículos" rendered="#{controladorAcesso.ativo}" disabled="#{!controladorAcesso.ativo}" action="#{controladorMenu.setPagina('/cadastro/veiculo')}" update=":formConteudo:panelConteudo" />
-									<p:menuitem icon="fa fa-fw fa-gear" value="Ordens de Serviço" rendered="#{controladorAcesso.ativo}" disabled="#{!controladorAcesso.ativo}" action="#{controladorMenu.setPagina('/cadastro/ordemservico')}" update=":formConteudo:panelConteudo" />
-									<p:menuitem icon="fa fa-fw fa-wrench" value="Serviços" rendered="#{controladorAcesso.ativo}" disabled="#{!controladorAcesso.ativo}" action="#{controladorMenu.setPagina('/cadastro/servico')}" update=":formConteudo:panelConteudo" />
-									<p:menuitem icon="fa fa-fw fa-puzzle-piece" value="Peças" rendered="#{controladorAcesso.ativo}" disabled="#{!controladorAcesso.ativo}" action="#{controladorMenu.setPagina('/cadastro/peca')}" update=":formConteudo:panelConteudo" />
+								<p:submenu
+									label="Cadastro"
+									style="background:none;"
+									icon="fa fa-fw fa-edit">
+									<p:menuitem
+										icon="fa fa-fw fa-user"
+										value=" Clientes"
+										rendered="#{controladorUsuario.ativo}"
+										disabled="#{!controladorUsuario.ativo}"
+										action="#{controladorMenu.setPagina('/cadastro/cliente')}"
+										update=":formConteudo:panelConteudo" />
+									<p:menuitem
+										icon="fa fa-fw fa-car"
+										value="Veículos"
+										rendered="#{controladorUsuario.ativo}"
+										disabled="#{!controladorUsuario.ativo}"
+										action="#{controladorMenu.setPagina('/cadastro/veiculo')}"
+										update=":formConteudo:panelConteudo" />
+									<p:menuitem
+										icon="fa fa-fw fa-gear"
+										value="Ordens de Serviço"
+										rendered="#{controladorUsuario.ativo}"
+										disabled="#{!controladorUsuario.ativo}"
+										action="#{controladorMenu.setPagina('/cadastro/ordemservico')}"
+										update=":formConteudo:panelConteudo" />
+									<p:menuitem
+										icon="fa fa-fw fa-wrench"
+										value="Serviços"
+										rendered="#{controladorUsuario.ativo}"
+										disabled="#{!controladorUsuario.ativo}"
+										action="#{controladorMenu.setPagina('/cadastro/servico')}"
+										update=":formConteudo:panelConteudo" />
+									<p:menuitem
+										icon="fa fa-fw fa-puzzle-piece"
+										value="Peças"
+										rendered="#{controladorUsuario.ativo}"
+										disabled="#{!controladorUsuario.ativo}"
+										action="#{controladorMenu.setPagina('/cadastro/peca')}"
+										update=":formConteudo:panelConteudo" />
 								</p:submenu>
 							</p:menu>
 							<div style="margin-top: 60px">
 								<div align="center">
-									<p:outputLabel value="Usuário: #{controladorAcesso.usuarioAtivo.nome}" rendered="#{controladorAcesso.ativo}" />
+									<p:outputLabel
+										value="Usuário: #{controladorUsuario.usuarioAtivo.nome}"
+										rendered="#{controladorUsuario.ativo}" />
 								</div>
 								<div align="center">
-									<p:commandLink value="Sair" id="buttonSair" actionListener="#{controladorAcesso.sair('acesso')}" immediate="true" rendered="#{controladorAcesso.ativo}" update=":formConteudo:panelConteudo :formMenu:panelMenu" />
+									<p:commandLink
+										value="Sair"
+										id="buttonSair"
+										actionListener="#{controladorUsuario.sair('acesso')}"
+										immediate="true"
+										rendered="#{controladorUsuario.ativo}"
+										update=":formConteudo:panelConteudo :formMenu:panelMenu" />
 								</div>
 							</div>
 						</h:panelGroup>
 					</h:form>
 				</ui:insert>
 			</p:layoutUnit>
-			<p:layoutUnit position="center" id="centro">
-				<h:form id="formConteudo" enctype="multipart/form-data">
+			<p:layoutUnit
+				position="center"
+				id="centro">
+				<h:form
+					id="formConteudo"
+					enctype="multipart/form-data">
 					<p:panel id="panelConteudo">
 						<ui:include src="#{controladorMenu.pagina}.xhtml" />
 					</p:panel>

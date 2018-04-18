@@ -19,7 +19,7 @@ public class ValidadorCpf implements Validator {
 	@Override
 	public void validate(FacesContext facesContext, UIComponent component, Object value) throws ValidatorException {
 		if (!ValidarCpf.isCpfValido(String.valueOf(String.format("%011d", value)))) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF inv√°lido!", "");
+			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "CPF inv·lido!", "");
 			throw new ValidatorException(message);
 		}
 	}

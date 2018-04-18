@@ -11,17 +11,24 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
-import  lombok.Data;
+import lombok.Data;
 
 @SuppressWarnings("serial")
 @Entity(name = "usuario")
-// @NamedQueries({name = Usuario.PESQUISAR_POR_NOME_SENHA, query = "SELECT u
-// FROM usuario u WHERE u.nome = :nome AND u.senha = :senha"})
-@NamedQueries({ @NamedQuery(name = Usuario.PESQUISAR_POR_NOME_SENHA, query = "SELECT u FROM usuario u WHERE u.nome = :nome AND u.senha = :senha"), @NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL_CODIGO, query = "select u from usuario u where u.email like :email and u.codigo like :codigo") })
+@NamedQueries({ @NamedQuery(name = Usuario.PESQUISAR_POR_NOME,
+	query = "SELECT u FROM usuario u WHERE u.nome = :nome"),
+	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL,
+		query = "SELECT u FROM usuario u WHERE u.email = :email"),
+	@NamedQuery(name = Usuario.PESQUISAR_POR_NOME_SENHA,
+		query = "SELECT u FROM usuario u WHERE u.nome = :nome AND u.senha = :senha"),
+	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL_CODIGO,
+		query = "select u from usuario u where u.email like :email and u.codigo like :codigo"), })
 @Data
 public class Usuario implements Serializable {
-	
+
 	@Transient
+	public static final String PESQUISAR_POR_NOME = "Usuario.pesquisarPorNome";
+	public static final String PESQUISAR_POR_EMAIL = "Usuario.pesquisarPorEmail";
 	public static final String PESQUISAR_POR_NOME_SENHA = "Usuario.pesquisarPorNomeSenha";
 	public static final String PESQUISAR_POR_EMAIL_CODIGO = "Usuario.pesquisarPorEmailCodigo";
 	@Id

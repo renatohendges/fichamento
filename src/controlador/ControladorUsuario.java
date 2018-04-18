@@ -12,6 +12,7 @@ import entidade.Usuario;
 import lombok.Getter;
 import lombok.Setter;
 import servico.ServicoUsuario;
+import util.Mensagem;
 
 @SuppressWarnings("serial")
 @Named
@@ -46,6 +47,7 @@ public class ControladorUsuario implements Serializable {
 			ativo = true;
 			usuarioAtivo = usuarioEncontrado;
 			controladorMenu.setPagina(pagina);
+			Mensagem.adicionarMensagem(FacesMessage.SEVERITY_INFO, "Acesso concedido!", "mensagem");
 			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/inicio.xhtml");
 		}
 	}

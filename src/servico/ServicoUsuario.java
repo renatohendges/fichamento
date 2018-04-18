@@ -22,7 +22,27 @@ public class ServicoUsuario {
 	public Usuario pesquisarPorNomeSenha(String nome, String senha) {
 		senha = CritpoUtil.stringParaMd5(senha);
 		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_NOME_SENHA).setParameter("nome", nome).setParameter("senha", senha).getResultList();
-		if (usuarios.size() == 1) {
+		if (usuarios.size() >= 1) {
+			return usuarios.get(0);
+		} else {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public Usuario pesquisarPorNome(String nome) {
+		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_NOME).setParameter("nome", nome).getResultList();
+		if (usuarios.size() >= 1) {
+			return usuarios.get(0);
+		} else {
+			return null;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public Usuario pesquisarPorEmail(String email) {
+		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_EMAIL).setParameter("email", email).getResultList();
+		if (usuarios.size() >= 1) {
 			return usuarios.get(0);
 		} else {
 			return null;

@@ -37,7 +37,7 @@ public class ControladorCadastroUsuario implements Serializable {
 	private String confirmarSenha;
 	@Getter
 	@Setter
-	@Email(message = "Precisa ser um email válido!")
+	@Email(message = "Precisa ser um email v�lido!")
 	private String email;
 	@Getter
 	@Setter
