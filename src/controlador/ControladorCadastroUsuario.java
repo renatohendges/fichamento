@@ -65,8 +65,6 @@ public class ControladorCadastroUsuario implements Serializable {
 			} else {
 				usuario.setAtivo(true);
 				servicoAcesso.atualizar(usuario);
-				System.out.println("Teste");
-				System.out.println("Teste");
 			}
 		}
 	}
