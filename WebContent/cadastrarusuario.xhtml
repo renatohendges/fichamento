@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition>
+	<p:panelGrid columns="2" styleClass="ui-noborder">
+		<p:outputLabel for="nome" value="Nome:" />
+		<p:inputText id="nome" value="#{controladorCadastroUsuario.nome}" required="true" requiredMessage="O campo nome é necessário!" />
+		<p:outputLabel for="email" value="Email:" />
+		<p:inputText id="email" value="#{controladorCadastroUsuario.email}" required="true" requiredMessage="O campo Email é necessário!" />
+		<p:outputLabel for="senha" value="Senha:" />
+		<p:password id="senha" value="#{controladorCadastroUsuario.senha}" match="confirmarSenha" required="true" requiredMessage="O campo senha é necessário!" validatorMessage="As senhas não conferem!" />
+		<p:outputLabel for="confirmarSenha" value="Confirmar Senha:" />
+		<p:password id="confirmarSenha" value="#{controladorCadastroUsuario.confirmarSenha}" />
+
+		<p:commandButton id="buttonSalvar" value="Salvar" actionListener="#{controladorCadastroUsuario.salvar()}" update="growl" />
+
+	</p:panelGrid>
+</ui:composition>
+</html>

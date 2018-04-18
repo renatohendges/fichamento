@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition>
+	<p:layout id="layoutCadastroServico" style="min-width:400px;min-height:200px;">
+		<p:layoutUnit id="operacoesServico" position="west" size="150" minSize="40" maxSize="200">
+			<p:commandButton value="Adicionar" style="width:90%;" icon="fa fa-fw fa-plus-square-o" actionListener="#{servicoController.definirOperacao('Adicionar')}" update=":formConteudo:layoutCadastroServico :formConteudo:dataTableServicos" disabled="#{clienteController.manipulando}" />
+			<p:commandButton value="Editar" style="width:90%;" icon="fa fa-fw fa-edit" actionListener="#{servicoController.definirOperacao('Editar')}" update=":formConteudo:layoutCadastroServico :formConteudo:dataTableServicos growl" disabled="#{clienteController.manipulando}" />
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+		Serviços
+			<p:panelGrid id="panelGridCadastroServico" columns="4" styleClass="ui-noborder">
+				<p:outputLabel for="descricao" value="Descrição:" style="float:right;" />
+				<p:inputText id="descricao" value="#{servicoController.servico.descricao}" required="true" disabled="#{!servicoController.manipulando}" />
+				<p:outputLabel for="valor" value="Valor:" style="float:right;" />
+				<p:inputNumber id="valor" value="#{servicoController.servico.valor}" required="true" disabled="#{!servicoController.manipulando}" decimalPlaces="2" decimalSeparator="," symbol="R$ " />
+			</p:panelGrid>
+			<p:commandButton value="Salvar" icon="fa fa-fw fa-save" actionListener="#{servicoController.salvar()}" disabled="#{!servicoController.manipulando}" update=":formConteudo:layoutCadastroServico :formConteudo:dataTableServicos growl" />
+			<p:commandButton value="Cancelar" icon="fa fa-fw fa-ban" actionListener="#{servicoController.cancelar()}" disabled="#{!servicoController.manipulando}" update=":formConteudo:layoutCadastroServico :formConteudo:dataTableServicos" immediate="true" />
+		</p:layoutUnit>
+	</p:layout>
+	<p:dataTable id="dataTableServicos" widgetVar="dataTableServicos" var="servico" value="#{servicoController.servicos}" selectionMode="single" selection="#{servicoController.servicoSelecionado}" rowKey="#{servico.id}" paginator="true" lazy="true" rows="10" disabledSelection="#{servicoController.manipulando}">
+		<p:ajax event="rowSelect" listener="#{servicoController.onRowSelect}" update=":formConteudo:layoutCadastroServico" />
+		<p:column headerText="Descrição">
+			<h:outputText value="#{servico.descricao}" style="float:left" />
+		</p:column>
+		<p:column headerText="Valor">
+			<h:outputText value="#{servico.valor}" style="float:left;">
+				<f:convertNumber type="currency" currencyCode="BRL" />
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+</ui:composition>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition>
+	<p:layout id="layoutCadastroCliente" style="min-width:400px;min-height:200px;">
+		<p:layoutUnit id="operacoesCliente" position="west" size="150" minSize="40" maxSize="200">
+			<p:commandButton value="Adicionar" style="width:90%;" icon="fa fa-fw fa-plus-square-o" actionListener="#{clienteController.definirOperacao('Adicionar')}" update=":formConteudo:layoutCadastroCliente :formConteudo:dataTableClientes" disabled="#{clienteController.manipulando}" />
+			<p:commandButton value="Editar" style="width:90%;" icon="fa fa-fw fa-edit" actionListener="#{clienteController.definirOperacao('Editar')}" update=":formConteudo:layoutCadastroCliente :formConteudo:dataTableClientes growl" disabled="#{clienteController.manipulando}" />
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<p:panelGrid id="panelGridCadastroCliente" columns="4" styleClass="ui-noborder">
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" value="#{clienteController.cliente.nome}" required="true" disabled="#{!clienteController.manipulando}" />
+				<p:outputLabel for="cpf" value="CPF:" />
+				<p:inputMask id="cpf" value="#{clienteController.cliente.cpf}" required="true" disabled="#{!clienteController.manipulando}" mask="999.999.999-99" converter="cpfConverter" />
+				<p:outputLabel for="telefone" value="Telefone" />
+				<p:inputMask id="telefone" value="#{clienteController.cliente.telefone}" required="true" disabled="#{!clienteController.manipulando}" mask="(99)9999-9999" />
+				<p:outputLabel for="cep" value="CEP:" />
+				<p:autoComplete id="cep" value="#{logradouroController.logradouro}" completeMethod="#{logradouroController.pesquisarCep}" var="logradouro" itemLabel="#{logradouro.cep}" itemValue="#{logradouro}" minQueryLength="8" converter="#{logradouroConverter}" maxlength="8">
+					<p:ajax update="growl" />
+				</p:autoComplete>
+				<p:keyFilter for="cep" mask="num" />
+			</p:panelGrid>
+			<p:commandButton value="Salvar" icon="fa fa-fw fa-save" actionListener="#{clienteController.salvar()}" disabled="#{!clienteController.manipulando}" update=":formConteudo:layoutCadastroCliente :formConteudo:dataTableClientes growl" />
+			<p:commandButton value="Cancelar" icon="fa fa-fw fa-ban" actionListener="#{clienteController.cancelar()}" disabled="#{!clienteController.manipulando}" update=":formConteudo:layoutCadastroCliente :formConteudo:dataTableClientes" immediate="true" />
+		</p:layoutUnit>
+	</p:layout>
+	<p:dataTable id="dataTableClientes" widgetVar="dataTableClientes" var="cliente" value="#{clienteController.clientes}" selectionMode="single" selection="#{clienteController.clienteSelecionado}" rowKey="#{cliente.id}" paginator="true" lazy="true" rows="10" disabledSelection="#{clienteController.manipulando}">
+		<p:ajax event="rowSelect" listener="#{clienteController.onRowSelect}" update=":formConteudo:layoutCadastroCliente" />
+		<p:column headerText="Nome">
+			<h:outputText value="#{cliente.nome}" style="float:left" />
+		</p:column>
+		<p:column headerText="CPF">
+			<h:outputText value="#{cliente.cpf}" converter="cpfConverter" style="float:left" />
+		</p:column>
+		<p:column headerText="Telefone">
+			<h:outputText value="#{cliente.telefone}" style="float:left" />
+		</p:column>
+	</p:dataTable>
+</ui:composition>
+</html>

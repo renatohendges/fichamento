@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition>
+	<p:layout id="layoutCadastroOrdemServico" style="min-width:400px;min-height:200px;">
+		<p:layoutUnit id="operacoesOrdemServico" position="west" size="150" minSize="40" maxSize="200">
+			<p:commandButton value="Adicionar" style="width:90%;" icon="fa fa-fw fa-plus-square-o" actionListener="#{ordemServicoController.definirOperacao('Adicionar')}" update=":formConteudo:layoutCadastroOrdemServico :formConteudo:dataTableOrdemServicos" disabled="#{clienteController.manipulando}" />
+			<p:commandButton value="Editar" style="width:90%;" icon="fa fa-fw fa-edit" actionListener="#{ordemServicoController.definirOperacao('Editar')}" update=":formConteudo:layoutCadastroOrdemServico :formConteudo:dataTableOrdemServicos growl" disabled="#{clienteController.manipulando}" />
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<p:panelGrid id="panelGridCadastroOrdemServico" columns="4" styleClass="ui-noborder">
+				<p:outputLabel for="data" value="Data:" style="float:right;" />
+				<p:outputLabel id="data" value="#{ordemServicoController.ordemServico.dataAbertura}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</p:outputLabel>
+				<p:outputLabel for="previsao" value="Previsao:" />
+				<p:calendar id="previsao" value="#{ordemServicoController.ordemServico.previsao}" disabled="#{!ordemServicoController.manipulando}" mask="true" pattern="dd/MM/yyyy" showTodayButton="true" locale="pt_BR" />
+				<p:outputLabel value="Placa" for="placa" />
+				<p:autoComplete id="placa" value="#{ordemServicoController.ordemServico.veiculo.placa}" disabled="#{!ordemServicoController.manipulando}" completeMethod="#{veiculoController.veiculos}" converter="veiculoConverter" autocomplete="true" dropdown="true" />
+			</p:panelGrid>
+			<p:commandButton value="Salvar" icon="fa fa-fw fa-save" actionListener="#{ordemServicoController.salvar()}" disabled="#{!ordemServicoController.manipulando}" update=":formConteudo:layoutCadastroOrdemServico :formConteudo:dataTableOrdemServicos growl" />
+			<p:commandButton value="Cancelar" icon="fa fa-fw fa-ban" actionListener="#{ordemServicoController.cancelar()}" disabled="#{!ordemServicoController.manipulando}" update=":formConteudo:layoutCadastroOrdemServico :formConteudo:dataTableOrdemServicos" immediate="true" />
+		</p:layoutUnit>
+	</p:layout>
+	<p:dataTable id="dataTableOrdemServicos" widgetVar="dataTableOrdemServicos" var="ordemServico" value="#{ordemServicoController.ordemServicos}" selectionMode="single" selection="#{ordemServicoController.ordemServicoSelecionado}" rowKey="#{ordemServico.id}" paginator="true" lazy="true" rows="10" disabledSelection="#{ordemServicoController.manipulando}">
+		<p:ajax event="rowSelect" listener="#{ordemServicoController.onRowSelect}" update=":formConteudo:layoutCadastroOrdemServico" />
+		<p:column headerText="Número">
+			<h:outputText value="#{ordemServico.id}" style="float:left" />
+		</p:column>
+		<p:column headerText="Abertura">
+			<h:outputText value="#{ordemServico.dataAbertura}" style="float:left">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Previsão">
+			<h:outputText value="#{ordemServico.previsao}" style="float:left">
+				<f:convertDateTime pattern="dd/MM/yyyy" />
+			</h:outputText>
+		</p:column>
+		<p:column headerText="Veículo">
+			<h:outputText value="#{ordemServico.veiculo.placa}" style="float:left" />
+		</p:column>
+	</p:dataTable>
+</ui:composition>
+</html>

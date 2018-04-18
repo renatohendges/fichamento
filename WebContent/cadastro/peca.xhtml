@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
+<ui:composition>
+	<p:layout id="layoutCadastroPeca" style="min-width:400px;min-height:200px;">
+		<p:layoutUnit id="operacoesPeca" position="west" size="150" minSize="40" maxSize="200">
+			<p:commandButton value="Adicionar" style="width:90%;" icon="fa fa-fw fa-plus-square-o" actionListener="#{pecaController.definirOperacao('Adicionar')}" update=":formConteudo:layoutCadastroPeca :formConteudo:dataTablePecas" disabled="#{pecaController.manipulando}" />
+			<p:commandButton value="Editar" style="width:90%;" icon="fa fa-fw fa-edit" actionListener="#{pecaController.definirOperacao('Editar')}" update=":formConteudo:layoutCadastroPeca :formConteudo:dataTablePecas growl" disabled="#{pecaController.manipulando}" />
+		</p:layoutUnit>
+		<p:layoutUnit position="center">
+			<p:panelGrid id="panelGridCadastroPeca" columns="4" styleClass="ui-noborder">
+				<p:outputLabel for="descricao" value="Descição:" style="float:right;" />
+				<p:inputText id="descricao" value="#{pecaController.peca.descricao}" required="true" disabled="#{!pecaController.manipulando}" />
+				<p:outputLabel for="quantidade" value="Quantidade:" style="float:right;" />
+				<p:inputNumber id="quantidade" value="#{pecaController.peca.quantidade}" required="true" disabled="#{!pecaController.manipulando}" />
+				<p:outputLabel for="valor" value="Valor:" style="float:right;" />
+				<p:inputNumber id="valor" value="#{pecaController.peca.valor}" required="true" disabled="#{!pecaController.manipulando}" decimalPlaces="2" decimalSeparator="," symbol="R$ " />
+			</p:panelGrid>
+			<p:commandButton value="Salvar" icon="fa fa-fw fa-save" actionListener="#{pecaController.salvar()}" disabled="#{!pecaController.manipulando}" update=":formConteudo:layoutCadastroPeca :formConteudo:dataTablePecas growl" />
+			<p:commandButton value="Cancelar" icon="fa fa-fw fa-ban" actionListener="#{pecaController.cancelar()}" disabled="#{!pecaController.manipulando}" update=":formConteudo:layoutCadastroPeca :formConteudo:dataTablePecas" immediate="true" />
+		</p:layoutUnit>
+	</p:layout>
+	<p:dataTable id="dataTablePecas" widgetVar="dataTablePecas" var="peca" value="#{pecaController.pecas}" selectionMode="single" selection="#{pecaController.pecaSelecionado}" rowKey="#{peca.id}" paginator="true" lazy="true" rows="10" disabledSelection="#{pecaController.manipulando}">
+		<p:ajax event="rowSelect" listener="#{pecaController.onRowSelect}" update=":formConteudo:layoutCadastroPeca" />
+		<p:column headerText="descricao">
+			<h:outputText value="#{peca.descricao}" style="float:left;" />
+		</p:column>
+		<p:column headerText="Quantidade">
+			<h:outputText value="#{peca.quantidade}" style="float:left;" />
+		</p:column>
+		<p:column headerText="Valor">
+			<h:outputText value="#{peca.valor}" style="float:left;">
+				<f:convertNumber type="currency" currencyCode="BRL" />
+			</h:outputText>
+		</p:column>
+	</p:dataTable>
+</ui:composition>
+</html>
