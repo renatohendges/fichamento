@@ -10,13 +10,13 @@
 		columns="2"
 		styleClass="ui-noborder">
 		<p:outputLabel
-			value="Nome:"
-			for="nome" />
+			value="Email:"
+			for="email" />
 		<p:inputText
-			value="#{controladorUsuario.nome}"
-			id="nome"
+			value="#{controladorUsuario.email}"
+			id="email"
 			required="true"
-			requiredMessage="O nome é obrigatório!" />
+			requiredMessage="O email é obrigatório!" />
 		<p:outputLabel
 			value="Senha: "
 			for="senha" />
@@ -31,13 +31,13 @@
 		styleClass="ui-noborder">
 		<p:commandButton
 			value="Acessar"
-			icon="fa fa-fw fa-key"
+			icon="fa fa-fw fa-check"
 			id="buttonAcessar"
 			action="#{controladorUsuario.acessar('apresentacao')}"
 			update=":formConteudo:panelConteudo :formMenu:panelMenu growl" />
 		<p:commandButton
 			value="Cadastrar"
-			icon="fa fa-fw fa-key"
+			icon="fa fa-fw fa-user-plus"
 			id="buttonCadastrar"
 			action="#{controladorMenu.setPagina('/cadastrarusuario')}"
 			update=":formConteudo:panelConteudo :formMenu:panelMenu growl"

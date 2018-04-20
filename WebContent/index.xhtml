@@ -21,7 +21,8 @@
 <h:body>
 	<p:growl
 		id="growl"
-		life="3000" />
+		life="3000"
+		sticky="true" />
 	<div align="center">
 		<p:layout fullPage="true">
 			<p:layoutUnit position="north">
@@ -45,25 +46,22 @@
 									style="background:none;"
 									icon="fa fa-fw fa-edit">
 									<p:menuitem
-										icon="fa fa-fw fa-user"
-										value=" Clientes"
-										rendered="#{controladorUsuario.ativo}"
-										disabled="#{!controladorUsuario.ativo}"
-										action="#{controladorMenu.setPagina('/cadastro/cliente')}"
+										icon="fa fa-fw fa-check-square-o"
+										value="Verificar código email"
+										rendered="#{!controladorUsuario.ativo}"
+										action="#{controladorMenu.setPagina('/verificarcodigo')}"
 										update=":formConteudo:panelConteudo" />
 									<p:menuitem
-										icon="fa fa-fw fa-car"
-										value="Veículos"
-										rendered="#{controladorUsuario.ativo}"
-										disabled="#{!controladorUsuario.ativo}"
-										action="#{controladorMenu.setPagina('/cadastro/veiculo')}"
+										icon="fa fa-fw fa-mail-reply"
+										value="Reenviar código email"
+										rendered="#{!controladorUsuario.ativo}"
+										action="#{controladorMenu.setPagina('/reenviarcodigo')}"
 										update=":formConteudo:panelConteudo" />
 									<p:menuitem
-										icon="fa fa-fw fa-gear"
-										value="Ordens de Serviço"
-										rendered="#{controladorUsuario.ativo}"
-										disabled="#{!controladorUsuario.ativo}"
-										action="#{controladorMenu.setPagina('/cadastro/ordemservico')}"
+										icon="fa fa-fw fa-check"
+										value="Acessar"
+										rendered="#{!controladorUsuario.ativo}"
+										action="#{controladorMenu.setPagina('/acesso')}"
 										update=":formConteudo:panelConteudo" />
 									<p:menuitem
 										icon="fa fa-fw fa-wrench"

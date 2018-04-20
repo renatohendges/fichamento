@@ -19,9 +19,9 @@ public class ServicoUsuario {
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
-	public Usuario pesquisarPorNomeSenha(String nome, String senha) {
+	public Usuario pesquisarPorEmailSenha(String email, String senha) {
 		senha = CritpoUtil.stringParaMd5(senha);
-		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_NOME_SENHA).setParameter("nome", nome).setParameter("senha", senha).getResultList();
+		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_EMAIL_SENHA).setParameter("email", email).setParameter("senha", senha).getResultList();
 		if (usuarios.size() >= 1) {
 			return usuarios.get(0);
 		} else {
@@ -54,7 +54,6 @@ public class ServicoUsuario {
 		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_EMAIL_CODIGO).setParameter("email", email).setParameter("codigo", codigo).getResultList();
 		if (usuarios.size() == 1) {
 			return usuarios.get(0);
-
 		} else {
 			return null;
 		}

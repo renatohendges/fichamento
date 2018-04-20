@@ -33,22 +33,24 @@ public class ControladorUsuario implements Serializable {
 	private Usuario usuarioAtivo;
 	@Getter
 	@Setter
-	private String nome;
+	private String email;
 	@Getter
 	@Setter
 	private String senha;
 
 	public void acessar(String pagina) throws Exception {
-		Usuario usuarioEncontrado = (Usuario) servicoAcesso.pesquisarPorNomeSenha(nome, senha);
+		Usuario usuarioEncontrado = (Usuario) servicoAcesso.pesquisarPorEmailSenha(email, senha);
 		if (usuarioEncontrado == null) {
-			FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha inválidos!", null);
-			FacesContext.getCurrentInstance().addMessage(null, message);
+			Mensagem.adicionarMensagem(FacesMessage.SEVERITY_ERROR, "Usuário ou senha inválidos", "Usuário ou senha inválidos");
+		} else if (!usuarioEncontrado.getAtivo()) {
+			Mensagem.adicionarMensagem(FacesMessage.SEVERITY_ERROR, "Usuário não está ativo no sistema", "Usuário não está ativo no sistema");
+			controladorMenu.setPagina("/reenviarcodigo");
 		} else {
 			ativo = true;
 			usuarioAtivo = usuarioEncontrado;
 			controladorMenu.setPagina(pagina);
 			Mensagem.adicionarMensagem(FacesMessage.SEVERITY_INFO, "Acesso concedido!", "mensagem");
-			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/inicio.xhtml");
+			FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/index.xhtml");
 		}
 	}
 
@@ -56,6 +58,6 @@ public class ControladorUsuario implements Serializable {
 		usuarioAtivo = null;
 		ativo = false;
 		controladorMenu.setPagina(pagina);
-		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/inicio.xhtml");
+		FacesContext.getCurrentInstance().getApplication().getNavigationHandler().handleNavigation(FacesContext.getCurrentInstance(), null, "/index.xhtml");
 	}
 }

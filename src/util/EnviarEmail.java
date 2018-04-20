@@ -30,7 +30,7 @@ public abstract class EnviarEmail {
 		mensagem.addFrom(InternetAddress.parse(gmail));
 		mensagem.setRecipients(Message.RecipientType.TO, para);
 		mensagem.setSubject("Validação de email");
-		mensagem.setContent("http://localhost:8080/fichamento/codigo.xhtml?email=" + para + "&codigo=" + codigo, "text/html");
+		mensagem.setContent(codigo, "text/html");
 		Transport transport = secao.getTransport();
 		try {
 			transport.connect("smtp.gmail.com", 587, gmail, "Rjhj1981");
