@@ -4,26 +4,40 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
 <ui:composition>
 	<p:panelGrid
+		id="panelgridReevniarSenha"
 		columns="2"
-		styleClass="ui-noborder">
+		styleClass="ui-noborder"
+		style="text-align:right"
+	>
 		<p:outputLabel
+			id="outputlabelEmail"
 			value="Email:"
-			for="email" />
+			for="inputtextEmail"
+		/>
 		<p:inputText
-			value="#{controladorCadastroUsuario.email}"
-			id="email"
+			id="inputtextEmail"
+			value="#{controladorAcesso.usuario.email}"
 			required="true"
-			requiredMessage="O email é obrigatório!" />
+			requiredMessage="Campo email é obrigatório"
+		/>
 	</p:panelGrid>
 	<p:commandButton
+		id="buttonReenviarEmail"
 		value="Reenviar"
 		icon="fa fa-fw fa-mail-reply"
-		id="buttonReenviarEmail"
-		action="#{controladorMenu.setPagina('/cadastrarusuario')}"
+		action="#{controladorAcesso.reenviarSenha('acesso')}"
 		update=":formConteudo:panelConteudo :formMenu:panelMenu growl"
-		immediate="true" />
+	/>
+	<p:blockUI
+		id="blockUILoader"
+		block="formConteudo"
+		trigger="buttonReenviarEmail"
+	>
+		<p:graphicImage value="imagens/loader.gif" />
+	</p:blockUI>
 </ui:composition>
 </html>

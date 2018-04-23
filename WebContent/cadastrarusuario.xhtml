@@ -4,49 +4,46 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
 <ui:composition>
 	<p:panelGrid
 		id="panelGridCadastrarUsuario"
 		columns="2"
-		styleClass="ui-noborder">
+		styleClass="ui-noborder"
+		style="text-align:right"
+	>
 		<p:outputLabel
 			for="nome"
-			value="Nome:" />
+			value="Nome:"
+		/>
 		<p:inputText
 			id="nome"
-			value="#{controladorCadastroUsuario.nome}"
-			required="true"
-			requiredMessage="O campo nome é necessário!" />
+			value="#{controladorAcesso.nome}"
+		/>
 		<p:outputLabel
 			for="email"
-			value="Email:" />
+			value="Email:"
+		/>
 		<p:inputText
 			id="email"
-			value="#{controladorCadastroUsuario.email}"
-			required="true"
-			requiredMessage="O campo Email é necessário!" />
-		<p:outputLabel
-			for="senha"
-			value="Senha:" />
-		<p:password
-			id="senha"
-			value="#{controladorCadastroUsuario.senha}"
-			match="confirmarSenha"
-			required="true"
-			requiredMessage="O campo senha é necessário!"
-			validatorMessage="As senhas não conferem!" />
-		<p:outputLabel
-			for="confirmarSenha"
-			value="Confirmar Senha:" />
-		<p:password
-			id="confirmarSenha"
-			value="#{controladorCadastroUsuario.confirmarSenha}" />
+			value="#{controladorAcesso.email}"
+		/>
+		<p:outputLabel />
+		<p:commandButton
+			id="buttonSalvar"
+			value="Salvar"
+			actionListener="#{controladorAcesso.salvarUsuario('acesso')}"
+			ajax="true"
+			update="growl :formConteudo:panelConteudo"
+		/>
 	</p:panelGrid>
-	<p:commandButton
-		id="buttonSalvar"
-		value="Salvar"
-		actionListener="#{controladorCadastroUsuario.salvar('/apresentacao')}"
-		update="growl :formConteudo:panelConteudo" />
+	<p:blockUI
+		id="blockUILoader"
+		block="formConteudo"
+		trigger="buttonSalvar"
+	>
+		<p:graphicImage value="imagens/loader.gif" />
+	</p:blockUI>
 </ui:composition>
 </html>

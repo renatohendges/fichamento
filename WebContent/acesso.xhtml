@@ -4,44 +4,72 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
 <ui:composition>
 	<p:panelGrid
+		id="panelGridAcesso"
 		columns="2"
-		styleClass="ui-noborder">
+		styleClass="ui-noborder"
+		style="text-align:right"
+	>
 		<p:outputLabel
+			id="outputLabelEmail"
 			value="Email:"
-			for="email" />
+			for="inputTextEmail"
+		/>
 		<p:inputText
-			value="#{controladorUsuario.email}"
-			id="email"
+			value="#{controladorAcesso.email}"
+			id="inputTextEmail"
 			required="true"
-			requiredMessage="O email é obrigatório!" />
+			requiredMessage="O email é obrigatório!"
+		/>
 		<p:outputLabel
+			id="outputLabelSenha"
 			value="Senha: "
-			for="senha" />
+			for="inputTextSenha"
+		/>
 		<p:password
-			value="#{controladorUsuario.senha}"
-			id="senha"
+			value="#{controladorAcesso.senha}"
+			id="inputTextSenha"
 			required="true"
-			requiredMessage="A senha é obrigatória!" />
+			requiredMessage="A senha é obrigatória!"
+		/>
 	</p:panelGrid>
 	<p:panelGrid
 		columns="3"
-		styleClass="ui-noborder">
+		styleClass="ui-noborder"
+	>
 		<p:commandButton
 			value="Acessar"
 			icon="fa fa-fw fa-check"
 			id="buttonAcessar"
-			action="#{controladorUsuario.acessar('apresentacao')}"
-			update=":formConteudo:panelConteudo :formMenu:panelMenu growl" />
+			action="#{controladorAcesso.acessar('apresentacao')}"
+			update=":formConteudo:panelConteudo :formMenu:panelMenu growl"
+		/>
 		<p:commandButton
 			value="Cadastrar"
 			icon="fa fa-fw fa-user-plus"
 			id="buttonCadastrar"
-			action="#{controladorMenu.setPagina('/cadastrarusuario')}"
+			action="#{controladorMenu.setPagina('cadastrarusuario')}"
+			update=":formConteudo:panelConteudo :formMenu:panelMenu"
+			immediate="true"
+		/>
+		<p:commandButton
+			value="Esqueci a senha"
+			icon="fa fa-fw fa-key"
+			id="buttonEsqueciSenha"
+			action="#{controladorAcesso.reenviarSenha('acesso')}"
 			update=":formConteudo:panelConteudo :formMenu:panelMenu growl"
-			immediate="true" />
+			process="inputTextEmail buttonEsqueciSenha"
+		/>
 	</p:panelGrid>
+	<p:blockUI
+		id="blockUILoader"
+		block="formConteudo"
+		trigger="buttonCadastrar buttonEsqueciSenha buttonAcessar"
+	>
+		<p:graphicImage value="imagens/loader.gif" />
+	</p:blockUI>
 </ui:composition>
 </html>

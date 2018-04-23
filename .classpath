@@ -5,7 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/all-themes.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/primefaces.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/MFontAwesome.jar"/>
 	<classpathentry kind="lib" path="src/lombok.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>

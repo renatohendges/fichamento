@@ -3,114 +3,135 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+>
 <h:head>
 	<meta
 		http-equiv="Content-Type"
-		content="text/html; charset=UTF-8" />
-	<h:outputStylesheet name="webjars/font-awesome/4.4.0/css/font-awesome.css" />
+		content="text/html; charset=UTF-8"
+	/>
 	<script
-		src="resources/js/primefaces.js"
-		type="text/javascript" />
+		src="javascript/primefaces.js"
+		type="text/javascript"
+	/>
 	<link
 		rel="icon"
-		type="image/jpeg"
-		href="#{resource['imagens/favicon.png']}" />
-	<title></title>
+		type="image/png"
+		href="imagens/favicon.png"
+	/>
+	<title>Fichamento Bibliográfico</title>
 </h:head>
 <h:body>
 	<p:growl
 		id="growl"
 		life="3000"
-		sticky="true" />
+		showSummary="true"
+		showDetail="true"
+	/>
 	<div align="center">
-		<p:layout fullPage="true">
-			<p:layoutUnit position="north">
+		<p:layout
+			fullPage="true"
+			id="layoutPagina"
+		>
+			<p:layoutUnit
+				position="north"
+				id="layoutUnitNorte"
+			>
 				<p:panel style="background-color:green; height:90%;">
-					<p:graphicImage url="/resources/imagens/senai.png" />
+					<p:graphicImage url="imagens/senai.png" />
 				</p:panel>
 			</p:layoutUnit>
-			<p:layoutUnit position="west">
+			<p:layoutUnit
+				position="west"
+				id="layoutUnitOeste"
+			>
 				<ui:insert name="menu">
 					<h:form id="formMenu">
 						<h:panelGroup id="panelMenu">
 							<p:commandButton
 								value="Início"
 								icon="fa fa-fw fa-home"
-								style="width: 100%;"
-								action="#{controladorMenu.setPagina('/apresentacao')}"
-								update=":formConteudo:panelConteudo" />
+								action="#{controladorMenu.setPagina('apresentacao')}"
+								update=":formConteudo:panelConteudo"
+								immediate="true"
+							/>
 							<p:menu id="menu">
 								<p:submenu
 									label="Cadastro"
-									style="background:none;"
-									icon="fa fa-fw fa-edit">
+									icon="fa fa-fw fa-edit"
+									rendered="#{!controladorAcesso.ativo}"
+								>
 									<p:menuitem
-										icon="fa fa-fw fa-check-square-o"
-										value="Verificar código email"
-										rendered="#{!controladorUsuario.ativo}"
-										action="#{controladorMenu.setPagina('/verificarcodigo')}"
-										update=":formConteudo:panelConteudo" />
+										icon="fa fa-fw fa-user-plus"
+										value="Cadastrar"
+										action="#{controladorMenu.setPagina('cadastrarusuario')}"
+										update=":formConteudo:panelConteudo"
+										immediate="true"
+										ajax="false"
+									/>
 									<p:menuitem
 										icon="fa fa-fw fa-mail-reply"
-										value="Reenviar código email"
-										rendered="#{!controladorUsuario.ativo}"
-										action="#{controladorMenu.setPagina('/reenviarcodigo')}"
-										update=":formConteudo:panelConteudo" />
+										value="Reenviar senha"
+										action="#{controladorMenu.setPagina('reenviarsenha')}"
+										update=":formConteudo:panelConteudo"
+										immediate="true"
+										ajax="false"
+									/>
 									<p:menuitem
 										icon="fa fa-fw fa-check"
 										value="Acessar"
-										rendered="#{!controladorUsuario.ativo}"
-										action="#{controladorMenu.setPagina('/acesso')}"
-										update=":formConteudo:panelConteudo" />
-									<p:menuitem
-										icon="fa fa-fw fa-wrench"
-										value="Serviços"
-										rendered="#{controladorUsuario.ativo}"
-										disabled="#{!controladorUsuario.ativo}"
-										action="#{controladorMenu.setPagina('/cadastro/servico')}"
-										update=":formConteudo:panelConteudo" />
-									<p:menuitem
-										icon="fa fa-fw fa-puzzle-piece"
-										value="Peças"
-										rendered="#{controladorUsuario.ativo}"
-										disabled="#{!controladorUsuario.ativo}"
-										action="#{controladorMenu.setPagina('/cadastro/peca')}"
-										update=":formConteudo:panelConteudo" />
+										action="#{controladorMenu.setPagina('acesso')}"
+										update=":formConteudo:panelConteudo"
+										immediate="true"
+										ajax="false"
+									/>
 								</p:submenu>
 							</p:menu>
-							<div style="margin-top: 60px">
-								<div align="center">
-									<p:outputLabel
-										value="Usuário: #{controladorUsuario.usuarioAtivo.nome}"
-										rendered="#{controladorUsuario.ativo}" />
-								</div>
-								<div align="center">
-									<p:commandLink
-										value="Sair"
-										id="buttonSair"
-										actionListener="#{controladorUsuario.sair('acesso')}"
-										immediate="true"
-										rendered="#{controladorUsuario.ativo}"
-										update=":formConteudo:panelConteudo :formMenu:panelMenu" />
-								</div>
-							</div>
+							<p:panelGrid
+								id="panelgridInformacoesUsuario"
+								columns="1"
+								rendered="#{controladorAcesso.ativo}"
+								styleClass="ui-noborder"
+								style="text-align:center"
+							>
+								<p:outputLabel value="Usuário" />
+								<p:outputLabel value="#{controladorAcesso.usuario.nome}" />
+								<p:commandButton
+									id="commandbuttonPerfilUsuario"
+									value="Perfil do usuário"
+									actionListener="#{controladorMenu.setPagina('/cadastro/perfilusuario')}"
+									immediate="true"
+									update=":formConteudo:panelConteudo :formMenu:panelMenu"
+								/>
+								<p:commandButton
+									id="commandbuttonSair"
+									value="Sair"
+									actionListener="#{controladorAcesso.sair('apresentacao')}"
+									immediate="true"
+									update=":formConteudo:panelConteudo :formMenu:panelMenu"
+								/>
+							</p:panelGrid>
 						</h:panelGroup>
 					</h:form>
 				</ui:insert>
 			</p:layoutUnit>
 			<p:layoutUnit
 				position="center"
-				id="centro">
+				id="layoutUnitCentro"
+			>
 				<h:form
 					id="formConteudo"
-					enctype="multipart/form-data">
+					enctype="multipart/form-data"
+				>
 					<p:panel id="panelConteudo">
 						<ui:include src="#{controladorMenu.pagina}.xhtml" />
 					</p:panel>
 				</h:form>
 			</p:layoutUnit>
-			<p:layoutUnit position="south">
+			<p:layoutUnit
+				position="south"
+				id="layoutUnitSul"
+			>
 					Senai CTAI - TCC Renato José Hendges Júnior
 			</p:layoutUnit>
 		</p:layout>

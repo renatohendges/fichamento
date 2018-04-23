@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<ui:composition>
+	<h1>Perfil do usuário</h1>
+	<p:panelGrid
+		id="panelGridPerfilUsuarioCampos"
+		columns="2"
+		styleClass="ui-noborder"
+		style="text-align:right"
+	>
+		<p:outputLabel
+			id="outputLabelNome"
+			for="inputTextNome"
+			value="Nome:"
+		/>
+		<p:inputText
+			id="inputTextNome"
+			value="#{controladorAcesso.usuario.nome}"
+			readonly="#{!controladorAcesso.editando}"
+		/>
+		<p:outputLabel
+			id="outputLabelEmail"
+			for="inputTextEmail"
+			value="Email:"
+			title="O email não pode ser alterado"
+		/>
+		<p:inputText
+			id="inputTextEmail"
+			value="#{controladorAcesso.usuario.email}"
+			readonly="true"
+		/>
+		<p:outputLabel
+			id="outputLabelAlterarSenha"
+			for="passwordAlterarSenha"
+			value="Nova Senha:"
+		/>
+		<p:password
+			id="passwordAlterarSenha"
+			value="#{controladorAcesso.usuario.senha}"
+			readonly="#{!controladorAcesso.editando}"
+		/>
+		<p:outputLabel
+			id="outputLabelConfirmacaoSenha"
+			for="passwordConfirmacaoSenha"
+			value="Confirmar senha:"
+		/>
+		<p:password
+			id="passwordConfirmacaoSenha"
+			value="#{controladorAcesso.senha}"
+			readonly="#{!controladorAcesso.editando}"
+		/>
+	</p:panelGrid>
+	<p:tooltip
+		id="tooltipEmail"
+		for="inputTextEmail"
+		value="O email não pode ser alterado!"
+		showEffect="pulsate"
+		hideEffect="clip"
+	/>
+	<p:panelGrid
+		id="panelgridPerfilUsuarioBotoes"
+		columns="3"
+		styleClass="ui-noborder"
+		style="text-align:right"
+	>
+		<p:commandButton
+			id="commandbuttonAlterar"
+			value="Editar"
+			actionListener="#{controladorAcesso.setEditando(true)}"
+			update=":formConteudo:panelConteudo :formMenu:panelMenu growl "
+			disabled="#{controladorAcesso.editando}"
+			immediate="true"
+		/>
+		<p:commandButton
+			id="commandbuttonSalvar"
+			value="Salvar"
+			actionListener="#{controladorAcesso.alterar('perfilusuario')}"
+			update=":formConteudo:panelConteudo :formMenu:panelMenu growl "
+			disabled="#{!controladorAcesso.editando}"
+		/>
+		<p:commandButton
+			id="commandbuttonCancelar"
+			value="Cancelar"
+			actionListener="#{controladorAcesso.setEditando(false)}"
+			update=":formConteudo:panelConteudo :formMenu:panelMenu growl "
+			disabled="#{!controladorAcesso.editando}"
+			immediate="true"
+		/>
+	</p:panelGrid>
+</ui:composition>
+</html>

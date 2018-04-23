@@ -12,11 +12,11 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import controlador.ControladorUsuario;
+import controlador.ControladorAcesso;
 
 public class FiltroUsuario implements Filter {
 	@Inject
-	ControladorUsuario controladorAcesso;
+	ControladorAcesso controladorAcesso;
 
 	@Override
 	public void destroy() {
@@ -24,10 +24,10 @@ public class FiltroUsuario implements Filter {
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		if (!controladorAcesso.getAtivo()) {
-			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/inicio.xhtml");
-		} else {
+		if (controladorAcesso.getAtivo()) {
 			chain.doFilter(request, response);
+		} else {
+			((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/inicio.xhtml");
 		}
 	}
 

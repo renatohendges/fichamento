@@ -11,6 +11,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import lombok.Data;
 
 @SuppressWarnings("serial")
@@ -20,9 +23,7 @@ import lombok.Data;
 	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL,
 		query = "SELECT u FROM usuario u WHERE u.email = :email"),
 	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL_SENHA,
-		query = "SELECT u FROM usuario u WHERE u.email = :email AND u.senha = :senha"),
-	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL_CODIGO,
-		query = "SELECT u FROM usuario u WHERE u.email = :email AND u.codigo = :codigo"), })
+		query = "SELECT u FROM usuario u WHERE u.email = :email AND u.senha = :senha") })
 @Data
 public class Usuario implements Serializable {
 
@@ -35,34 +36,31 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column
+	@NotBlank(message = "Campo nome é obrigatório!")
 	private String nome;
 	@Column
+	@NotBlank(message = "Campo senha é obrigatório!")
 	private String senha;
 	@Column
+	@Email(message = "Precisa ser um email válido!")
+	@NotBlank(message = "Campo email é obrigatório!")
 	private String email;
 	@Column
-	private Boolean ativo = false;
-	@Column
 	private Boolean administrador = false;
-	@Column
-	private String codigo;
 
 	public Usuario() {
 	}
 
-	public Usuario(String nome, String senha, String email) {
+	public Usuario(String nome, String email) {
 		super();
 		this.nome = nome;
-		this.senha = senha;
 		this.email = email;
 	}
 
-	public Usuario(String nome, String senha, String email, String codigo) {
+	public Usuario(String nome, String email, String senha) {
 		super();
 		this.nome = nome;
-		this.senha = senha;
 		this.email = email;
-		this.codigo = codigo;
+		this.senha = senha;
 	}
-
 }

@@ -3,16 +3,19 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
 <div align="center">
 	<h1>Trabalho de Conclusão de Curso - SENAI / Floranópolis</h1>
 </div>
 <div align="center">
-	<p:commandLink
+	<p:commandButton
 		value="Acessar"
 		id="acessar"
-		action="#{controladorMenu.setPagina('/acesso')}"
-		rendered="#{!controladorUsuario.ativo}"
-		update=":formConteudo:panelConteudo" />
+		action="#{controladorMenu.setPagina('acesso')}"
+		rendered="#{!controladorAcesso.ativo}"
+		update=":formConteudo:panelConteudo"
+		ajax="false"
+	/>
 </div>
 </html>

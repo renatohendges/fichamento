@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import entidade.Usuario;
-import util.CritpoUtil;
 
 @Named
 @ApplicationScoped
@@ -20,7 +19,6 @@ public class ServicoUsuario {
 
 	@SuppressWarnings("unchecked")
 	public Usuario pesquisarPorEmailSenha(String email, String senha) {
-		senha = CritpoUtil.stringParaMd5(senha);
 		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_EMAIL_SENHA).setParameter("email", email).setParameter("senha", senha).getResultList();
 		if (usuarios.size() >= 1) {
 			return usuarios.get(0);
@@ -43,16 +41,6 @@ public class ServicoUsuario {
 	public Usuario pesquisarPorEmail(String email) {
 		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_EMAIL).setParameter("email", email).getResultList();
 		if (usuarios.size() >= 1) {
-			return usuarios.get(0);
-		} else {
-			return null;
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public Usuario pesquisarPorEmailCodigo(String email, String codigo) {
-		List<Usuario> usuarios = entityManager.createNamedQuery(Usuario.PESQUISAR_POR_EMAIL_CODIGO).setParameter("email", email).setParameter("codigo", codigo).getResultList();
-		if (usuarios.size() == 1) {
 			return usuarios.get(0);
 		} else {
 			return null;
