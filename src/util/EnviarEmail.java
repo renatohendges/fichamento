@@ -15,13 +15,13 @@ public abstract class EnviarEmail {
 		String gmail = "fichabiblio@gmail.com";
 		String senha = "Rjhj1981";
 		String servidor = "smtp.gmail.com";
-		String porta = "587";
+		Integer porta = 587;
 		Properties propriedades = new Properties();
 
 		propriedades.put("mail.smtp.auth", "true");
 		propriedades.put("mail.smtp.starttls.enable", "true");
-		propriedades.put("mail.smtp.host", "smtp.gmail.com");
-		propriedades.put("mail.smtp.port", "587");
+		propriedades.put("mail.smtp.host", servidor);
+		propriedades.put("mail.smtp.port", porta);
 		propriedades.put("mail.transport.protocol", "smtp");
 		Session secao = Session.getDefaultInstance(propriedades, new Authenticator() {
 			@SuppressWarnings("unused")
@@ -36,7 +36,7 @@ public abstract class EnviarEmail {
 		mineMessage.setContent(mensagem, "text/html");
 		Transport transport = secao.getTransport();
 		try {
-			transport.connect("smtp.gmail.com", 587, gmail, senha);
+			transport.connect(servidor, porta, gmail, senha);
 			transport.sendMessage(mineMessage, mineMessage.getRecipients(Message.RecipientType.TO));
 		} catch (Exception e) {
 			e.printStackTrace();
