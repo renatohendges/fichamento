@@ -11,8 +11,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public abstract class EnviarEmail {
-	public static void enviarEmail(String para, String mensagem) throws Exception {
+	public static void enviarEmail(String para, String mensagem, String assunto) throws Exception {
 		String gmail = "fichabiblio@gmail.com";
+		String senha = "Rjhj1981";
+		String servidor = "smtp.gmail.com";
+		String porta = "587";
 		Properties propriedades = new Properties();
 
 		propriedades.put("mail.smtp.auth", "true");
@@ -23,17 +26,17 @@ public abstract class EnviarEmail {
 		Session secao = Session.getDefaultInstance(propriedades, new Authenticator() {
 			@SuppressWarnings("unused")
 			protected PasswordAuthentication getPasswordAutentication() {
-				return new PasswordAuthentication(gmail, "Rjhj1981");
+				return new PasswordAuthentication(gmail, senha);
 			}
 		});
 		MimeMessage mineMessage = new MimeMessage(secao);
 		mineMessage.addFrom(InternetAddress.parse(gmail));
 		mineMessage.setRecipients(Message.RecipientType.TO, para);
-		mineMessage.setSubject("Validação de email");
+		mineMessage.setSubject(assunto);
 		mineMessage.setContent(mensagem, "text/html");
 		Transport transport = secao.getTransport();
 		try {
-			transport.connect("smtp.gmail.com", 587, gmail, "Rjhj1981");
+			transport.connect("smtp.gmail.com", 587, gmail, senha);
 			transport.sendMessage(mineMessage, mineMessage.getRecipients(Message.RecipientType.TO));
 		} catch (Exception e) {
 			e.printStackTrace();

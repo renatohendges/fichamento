@@ -66,10 +66,10 @@ public class ControladorAcesso implements Serializable {
 			Mensagem.adicionarMensagem(Mensagem.FATAL, "", "Email já cadastrado no sistema");
 			email = "";
 		} else {
-			servicoAcesso.salvar(new Usuario(nome, email, GerarSenha.gerarSenha()));
-			Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Usuário " + nome + " salvo com sucesso!", "A senha foi enviada ao seu email.");
+			usuario = servicoAcesso.salvar(new Usuario(nome, email, GerarSenha.gerarSenha()));
+			Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Usuário " + usuario.getNome() + " salvo com sucesso!", "A senha foi enviada ao seu email.");
 			try {
-				EnviarEmail.enviarEmail(email, senha);
+				EnviarEmail.enviarEmail(email, "Esta é a sua senha para acesssar o sistema de Fichamento Bibliográfico.<br/><h1>" + usuario.getSenha() + "</h1>", "Cadastro Fichamento Bibliográfico");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -78,9 +78,9 @@ public class ControladorAcesso implements Serializable {
 	}
 
 	public void alterar(String pagina) {
-		servicoAcesso.atualizar(usuario);
+		usuario = servicoAcesso.atualizar(usuario);
 		try {
-			EnviarEmail.enviarEmail(usuario.getEmail(), "Seus dados foram editados.<br/>Nome: " + usuario.getNome() + "<br/>Senha: " + usuario.getSenha());
+			EnviarEmail.enviarEmail(usuario.getEmail(), "Seus dados foram editados.<br/>Nome: " + usuario.getNome() + "<br/>Senha: " + usuario.getSenha(), "Alteração de Cadastro Fichamento Bibliográfico");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -92,7 +92,7 @@ public class ControladorAcesso implements Serializable {
 		if (emailExiste()) {
 			usuario = servicoAcesso.pesquisarPorEmail(email);
 			try {
-				EnviarEmail.enviarEmail(usuario.getEmail(), "Esta é a sua senha.<br/><h1>" + usuario.getSenha() + "</h1><br/>acesse o sistema se preferir alterá-la.");
+				EnviarEmail.enviarEmail(usuario.getEmail(), "Esta é a sua senha.<br/><h1>" + usuario.getSenha() + "</h1>", "Reenvio de senha Fichamento Bibliográfico");
 				setPagina(pagina);
 				Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Senha enviada!", "Senha enviada ao email " + usuario.getEmail());
 			} catch (Exception e) {
@@ -103,15 +103,15 @@ public class ControladorAcesso implements Serializable {
 		}
 	}
 
-	public void setPagina(String pagina) {
-		controladorMenu.setPagina(pagina);
-	}
-
 	private Boolean emailExiste() {
 		if (servicoAcesso.pesquisarPorEmail(email) != null) {
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	public void setPagina(String pagina) {
+		controladorMenu.setPagina(pagina);
 	}
 }

@@ -28,7 +28,6 @@
 			id="outputLabelEmail"
 			for="inputTextEmail"
 			value="Email:"
-			title="O email não pode ser alterado"
 		/>
 		<p:inputText
 			id="inputTextEmail"
@@ -49,6 +48,7 @@
 			id="outputLabelConfirmacaoSenha"
 			for="passwordConfirmacaoSenha"
 			value="Confirmar senha:"
+			title="Clique em editar para alterar a senha"
 		/>
 		<p:password
 			id="passwordConfirmacaoSenha"
@@ -62,6 +62,15 @@
 		value="O email não pode ser alterado!"
 		showEffect="pulsate"
 		hideEffect="clip"
+		rendered="#{!controladorAcesso.editando}"
+	/>
+	<p:tooltip
+		id="tooltipSenha"
+		for="passwordAlterarSenha"
+		value="Clique em editar para alterar a senha!"
+		showEffect="pulsate"
+		hideEffect="clip"
+		rendered="#{!controladorAcesso.editando}"
 	/>
 	<p:panelGrid
 		id="panelgridPerfilUsuarioBotoes"
