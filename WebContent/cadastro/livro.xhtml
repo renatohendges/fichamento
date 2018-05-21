@@ -28,6 +28,7 @@
 			<p:inputText
 				id="inputTextTitulo"
 				value="#{controladorLivro.livro.titulo}"
+				disabled="#{!controladorLivro.adicionando}"
 			/>
 			<p:outputLabel
 				id="outputLabelSubTitulo"
@@ -37,6 +38,7 @@
 			<p:inputText
 				id="inputTextSubTitulo"
 				value="#{controladorLivro.livro.subTitulo}"
+				disabled="#{!controladorLivro.adicionando}"
 			/>
 			<p:outputLabel
 				id="outputLabelAutor"
@@ -46,6 +48,7 @@
 			<p:inputText
 				id="inputTextAutor"
 				value="#{controladorLivro.livro.autor}"
+				disabled="#{!controladorLivro.adicionando}"
 			/>
 			<p:outputLabel
 				id="outputLabelIsbn"
@@ -55,6 +58,7 @@
 			<p:inputText
 				id="inputTextIsbn"
 				value="#{controladorLivro.livro.isbn}"
+				disabled="#{!controladorLivro.adicionando}"
 			/>
 		</p:panelGrid>
 		<p:panelGrid
@@ -71,6 +75,7 @@
 			<p:inputText
 				id="inputTextEdicao"
 				value="#{controladorLivro.livro.edicao}"
+				disabled="#{!controladorLivro.adicionando}"
 			/>
 			<p:outputLabel
 				id="outputLabelCidadePublicacao"
@@ -80,6 +85,7 @@
 			<p:inputText
 				id="inputTextCidadePublicacao"
 				value="#{controladorLivro.livro.cidadePublicacao}"
+				disabled="#{!controladorLivro.adicionando}"
 			/>
 			<p:outputLabel
 				id="outputLabelEditora"
@@ -89,6 +95,7 @@
 			<p:inputText
 				id="inputTextEditora"
 				value="#{controladorLivro.livro.editora}"
+				disabled="#{!controladorLivro.adicionando}"
 			/>
 			<p:outputLabel
 				id="outputLabelAnoPublicacao"
@@ -98,20 +105,73 @@
 			<p:inputText
 				id="inputTextAnoPublicacao"
 				value="#{controladorLivro.livro.anoPublicacao}"
+				disabled="#{!controladorLivro.adicionando}"
 			/>
 		</p:panelGrid>
 	</p:panelGrid>
 	<p:panelGrid
 		id="panelGridLivroBotoes"
-		columns="2"
+		columns="3"
 		styleClass="ui-noborder"
 		style="text-align:right"
 	>
 		<p:commandButton
+			id="commandButtonLivrosAdicionar"
+			value="Adicionar"
+			actionListener="#{controladorLivro.adicionarLivro()}"
+			update="dataTableLivros panelGridLivroBotoes panelGridLivro"
+			immediate="true"
+			disabled="#{controladorLivro.adicionando}"
+		/>
+		<p:commandButton
 			id="commandButtonLivrosSalvar"
 			value="Salvar"
-			actionListener="#{controladorLivro.salvarLivro('/cadastro/livro')}"
+			actionListener="#{controladorLivro.salvarLivro()}"
+			update="dataTableLivros panelGridLivroBotoes panelGridLivro"
+			disabled="#{!controladorLivro.adicionando}"
+		/>
+		<p:commandButton
+			id="commandButtonLivrosCancelar"
+			value="Cancelar"
+			actionListener="#{controladorLivro.cancelar()}"
+			update="dataTableLivros panelGridLivroBotoes panelGridLivro"
+			immediate="true"
+			disabled="#{!controladorLivro.adicionando}"
 		/>
 	</p:panelGrid>
+	<p:dataTable
+		id="dataTableLivros"
+		widgetVar="dataTableLivros"
+		value="#{controladorLivro.livros}"
+		var="livro"
+		selectionMode="single"
+		selection="#{controladorLivro.livroSelecionado}"
+		rowKey="#{livro.id}"
+		rows="10"
+		disabledSelection="#{controladorLivro.adicionando}"
+		sortBy="#{livro.titulo}"
+		filteredValue="#{controladorLivro.livrosFiltrados}"
+		emptyMessage="Sem livros com esses critérios"
+	>
+		<p:column
+			headerText="ISBN"
+			filterBy="#{livro.isbn}"
+			filterMatchMode="contains"
+		>
+			<p:outputLabel value="#{livro.isbn}" />
+		</p:column>
+		<p:column
+			headerText="Título"
+			filterBy="#{livro.titulo}"
+			filterMatchMode="contains"
+		>
+			<p:outputLabel value="#{livro.titulo}" />
+		</p:column>
+		<p:ajax
+			event="rowSelect"
+			update=":formConteudo:panelGridLivro"
+			listener="#{controladorLivro.verLivro()}"
+		/>
+	</p:dataTable>
 </ui:composition>
 </html>

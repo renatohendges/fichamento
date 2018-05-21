@@ -1,7 +1,6 @@
 package entidade;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,8 +10,9 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import lombok.Data;
 
@@ -20,11 +20,13 @@ import lombok.Data;
 @Entity(name = "livro")
 @NamedQueries({
 	@NamedQuery(name = Livro.PESQUISAR_POR_TITULO,
-		query = "SELECT l FROM livro l WHERE l.titulo LIKE %:titulo%"),
+		query = "SELECT l FROM livro l WHERE l.titulo LIKE '%:titulo%'"),
 	@NamedQuery(name = Livro.PESQUISAR_POR_ISBN,
-		query = "SELECT l FROM livro l WHERE l.isbn LIKE %:isbn%"),
+		query = "SELECT l FROM livro l WHERE l.isbn LIKE '%:isbn%'"),
 	@NamedQuery(name = Livro.PESQUISAR_POR_AUTOR,
-		query = "SELECT l FROM livro l WHERE l.autor LIKE %:autor%")
+		query = "SELECT l FROM livro l WHERE l.autor LIKE '%:autor%'"),
+	@NamedQuery(name = Livro.PESQUISAR_TODOS,
+		query = "SELECT l FROM livro l")
 })
 @Data
 public class Livro implements Serializable {
@@ -33,19 +35,20 @@ public class Livro implements Serializable {
 	public static final String PESQUISAR_POR_TITULO = "Livro.pesquisarPorTitulo";
 	public static final String PESQUISAR_POR_ISBN = "Livro.pesquisarPorIsbn";
 	public static final String PESQUISAR_POR_AUTOR = "Livro.pesquisarPorAutor";
+	public static final String PESQUISAR_TODOS = "Livro.pesquisarTodos";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column
-	@NotBlank(message = "o campo título é obrigatório!")
+	@NotEmpty(message = "o campo título é obrigatório!")
 	private String titulo;
 	@Column
 	private String subTitulo;
 	@Column
-	@NotBlank(message = "O campo autor é obrigatório!")
+	@NotEmpty(message = "O campo autor é obrigatório!")
 	private String autor;
 	@Column
-	@NotBlank(message = "O campo isbn é obrigatório!")
+	@NotNull(message = "O campo isbn é obrigatório!")
 	private Integer isbn;
 	@Column
 	private Integer edicao;
@@ -54,7 +57,7 @@ public class Livro implements Serializable {
 	@Column
 	private String editora;
 	@Column
-	private Date anoPublicacao;
+	private Integer anoPublicacao;
 
 	public Livro() {
 		super();
@@ -67,7 +70,7 @@ public class Livro implements Serializable {
 		this.isbn = isbn;
 	}
 
-	public Livro(String titulo, String subTitulo, String autor, Integer isbn, Integer edicao, String cidadePublicacao, String editora, Date anoPublicacao) {
+	public Livro(String titulo, String subTitulo, String autor, Integer isbn, Integer edicao, String cidadePublicacao, String editora, Integer anoPublicacao) {
 		super();
 		this.titulo = titulo;
 		this.subTitulo = subTitulo;

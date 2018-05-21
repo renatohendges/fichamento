@@ -1,7 +1,9 @@
 package controlador;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -22,9 +24,43 @@ public class ControladorLivro implements Serializable {
 	@Getter
 	@Setter
 	private Livro livro;
+	@Getter
+	@Setter
+	private Livro livroSelecionado;
+	@Getter
+	@Setter
+	private List<Livro> livros;
+	@Getter
+	@Setter
+	private List<Livro> livrosFiltrados;
+	@Getter
+	@Setter
+	private Boolean adicionando = false;
 
-	public void salvarLivro(String pagina) {
+	@PostConstruct
+	public void init() {
+		this.livro = new Livro();
+		this.livros = servicoLivro.pesquisarTodos();
+		controladorMenu.setPagina("/cadastro/livro");
+	}
+
+	public void salvarLivro() {
 		livro = servicoLivro.salvar(livro);
-		controladorMenu.setPagina(pagina);
+		this.livros = servicoLivro.pesquisarTodos();
+		adicionando = false;
+	}
+
+	public void cancelar() {
+		livro = new Livro();
+		adicionando = false;
+	}
+
+	public void adicionarLivro() {
+		livro = new Livro();
+		adicionando = true;
+	}
+
+	public void verLivro() {
+		livro = livroSelecionado;
 	}
 }
