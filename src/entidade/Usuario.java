@@ -18,12 +18,14 @@ import lombok.Data;
 
 @SuppressWarnings("serial")
 @Entity(name = "usuario")
-@NamedQueries({ @NamedQuery(name = Usuario.PESQUISAR_POR_NOME,
-	query = "SELECT u FROM usuario u WHERE u.nome = :nome"),
+@NamedQueries({
+	@NamedQuery(name = Usuario.PESQUISAR_POR_NOME,
+		query = "SELECT u FROM usuario u WHERE u.nome = :nome"),
 	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL,
 		query = "SELECT u FROM usuario u WHERE u.email = :email"),
 	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL_SENHA,
-		query = "SELECT u FROM usuario u WHERE u.email = :email AND u.senha = :senha") })
+		query = "SELECT u FROM usuario u WHERE u.email = :email AND u.senha = :senha")
+})
 @Data
 public class Usuario implements Serializable {
 
@@ -31,7 +33,6 @@ public class Usuario implements Serializable {
 	public static final String PESQUISAR_POR_NOME = "Usuario.pesquisarPorNome";
 	public static final String PESQUISAR_POR_EMAIL = "Usuario.pesquisarPorEmail";
 	public static final String PESQUISAR_POR_EMAIL_SENHA = "Usuario.pesquisarPorEmailSenha";
-	public static final String PESQUISAR_POR_EMAIL_CODIGO = "Usuario.pesquisarPorEmailCodigo";
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;

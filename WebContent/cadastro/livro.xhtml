@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<ui:composition>
+	<h1>Adicionar Livro</h1>
+	<p:panelGrid
+		id="panelGridLivro"
+		columns="2"
+		styleClass="ui-noborder"
+		style="text-align:right"
+	>
+		<p:panelGrid
+			id="panelGridLivroInterna1"
+			columns="2"
+			styleClass="ui-noborder"
+			style="text-align:right"
+		>
+			<p:outputLabel
+				id="outputLabelTitulo"
+				for="inputTextTitulo"
+				value="Título:"
+			/>
+			<p:inputText
+				id="inputTextTitulo"
+				value="#{controladorLivro.livro.titulo}"
+			/>
+			<p:outputLabel
+				id="outputLabelSubTitulo"
+				for="inputTextSubTitulo"
+				value="Sub Título:"
+			/>
+			<p:inputText
+				id="inputTextSubTitulo"
+				value="#{controladorLivro.livro.subTitulo}"
+			/>
+			<p:outputLabel
+				id="outputLabelAutor"
+				for="inputTextAutor"
+				value="Autor:"
+			/>
+			<p:inputText
+				id="inputTextAutor"
+				value="#{controladorLivro.livro.autor}"
+			/>
+			<p:outputLabel
+				id="outputLabelIsbn"
+				for="inputTextIsbn"
+				value="Isbn:"
+			/>
+			<p:inputText
+				id="inputTextIsbn"
+				value="#{controladorLivro.livro.isbn}"
+			/>
+		</p:panelGrid>
+		<p:panelGrid
+			id="panelGridLivroInterna2"
+			columns="2"
+			styleClass="ui-noborder"
+			style="text-align:right"
+		>
+			<p:outputLabel
+				id="outputLabelEdicao"
+				for="inputTextEdicao"
+				value="Edição:"
+			/>
+			<p:inputText
+				id="inputTextEdicao"
+				value="#{controladorLivro.livro.edicao}"
+			/>
+			<p:outputLabel
+				id="outputLabelCidadePublicacao"
+				for="inputTextCidadePublicacao"
+				value="Cidade de Publicação:"
+			/>
+			<p:inputText
+				id="inputTextCidadePublicacao"
+				value="#{controladorLivro.livro.cidadePublicacao}"
+			/>
+			<p:outputLabel
+				id="outputLabelEditora"
+				for="inputTextEditora"
+				value="Editora:"
+			/>
+			<p:inputText
+				id="inputTextEditora"
+				value="#{controladorLivro.livro.editora}"
+			/>
+			<p:outputLabel
+				id="outputLabelAnoPublicacao"
+				for="inputTextAnoPublicacao"
+				value="Ano Publicação:"
+			/>
+			<p:inputText
+				id="inputTextAnoPublicacao"
+				value="#{controladorLivro.livro.anoPublicacao}"
+			/>
+		</p:panelGrid>
+	</p:panelGrid>
+	<p:panelGrid
+		id="panelGridLivroBotoes"
+		columns="2"
+		styleClass="ui-noborder"
+		style="text-align:right"
+	>
+		<p:commandButton
+			id="commandButtonLivrosSalvar"
+			value="Salvar"
+			actionListener="#{controladorLivro.salvarLivro('/cadastro/livro')}"
+		/>
+	</p:panelGrid>
+</ui:composition>
+</html>

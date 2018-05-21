@@ -47,7 +47,7 @@ public class ControladorAcesso implements Serializable {
 			if (usuario == null) {
 				Mensagem.adicionarMensagem(Mensagem.FATAL, "", "Senha incorreta!");
 			} else {
-				setPagina(pagina);
+				controladorMenu.setPagina(pagina);
 				ativo = true;
 				Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Acesso concedido!", "Seja bem vindo " + usuario.getNome() + "!");
 			}
@@ -69,11 +69,11 @@ public class ControladorAcesso implements Serializable {
 			usuario = servicoAcesso.salvar(new Usuario(nome, email, GerarSenha.gerarSenha()));
 			Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Usuário " + usuario.getNome() + " salvo com sucesso!", "A senha foi enviada ao seu email.");
 			try {
-				EnviarEmail.enviarEmail(email, "Esta é a sua senha para acesssar o sistema de Fichamento Bibliográfico.<br/><h1>" + usuario.getSenha() + "</h1>", "Cadastro Fichamento Bibliográfico");
+				EnviarEmail.enviarEmail(usuario.getEmail(), "Esta é a sua senha para acesssar o sistema de Fichamento Bibliográfico.<br/><h1>" + usuario.getSenha() + "</h1>", "Cadastro Fichamento Bibliográfico");
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			setPagina(pagina);
+			controladorMenu.setPagina(pagina);
 		}
 	}
 
@@ -93,7 +93,7 @@ public class ControladorAcesso implements Serializable {
 			usuario = servicoAcesso.pesquisarPorEmail(email);
 			try {
 				EnviarEmail.enviarEmail(usuario.getEmail(), "Esta é a sua senha.<br/><h1>" + usuario.getSenha() + "</h1>", "Reenvio de senha Fichamento Bibliográfico");
-				setPagina(pagina);
+				controladorMenu.setPagina(pagina);
 				Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Senha enviada!", "Senha enviada ao email " + usuario.getEmail());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -109,9 +109,5 @@ public class ControladorAcesso implements Serializable {
 		} else {
 			return false;
 		}
-	}
-
-	public void setPagina(String pagina) {
-		controladorMenu.setPagina(pagina);
 	}
 }

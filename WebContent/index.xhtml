@@ -57,6 +57,7 @@
 							/>
 							<p:menu id="menu">
 								<p:submenu
+									id="menuCadastro"
 									label="Cadastro"
 									icon="fa fa-fw fa-edit"
 									rendered="#{!controladorAcesso.ativo}"
@@ -85,6 +86,22 @@
 										immediate="true"
 										ajax="false"
 									/>
+								</p:submenu>
+								<p:submenu
+									id="menuSistema"
+									rendered="#{controladorAcesso.ativo}"
+									label="Sistema"
+									icon="fa fa-fw fa fa-institution"
+								>
+									<p:menuitem
+										icon="fa fa-fw fa-book"
+										value="Adicionar Livro"
+										update=":formConteudo:panelConteudo"
+										immediate="true"
+										ajax="false"
+										action="#{controladorMenu.setPagina('/cadastro/livro')}"
+									>
+									</p:menuitem>
 								</p:submenu>
 							</p:menu>
 							<p:panelGrid
