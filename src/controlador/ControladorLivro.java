@@ -36,6 +36,9 @@ public class ControladorLivro implements Serializable {
 	@Getter
 	@Setter
 	private Boolean adicionando = false;
+	@Getter
+	@Setter
+	private Boolean editando = false;
 
 	@PostConstruct
 	public void init() {
@@ -45,14 +48,23 @@ public class ControladorLivro implements Serializable {
 	}
 
 	public void salvarLivro() {
-		livro = servicoLivro.salvar(livro);
-		this.livros = servicoLivro.pesquisarTodos();
-		adicionando = false;
+		if (adicionando) {
+			servicoLivro.salvar(livro);
+			this.livros = servicoLivro.pesquisarTodos();
+			adicionando = false;
+			livro = new Livro();
+		}
+		if (editando) {
+			livro = servicoLivro.atualizar(livro);
+			this.livros = servicoLivro.pesquisarTodos();
+			editando = false;
+		}
 	}
 
 	public void cancelar() {
 		livro = new Livro();
 		adicionando = false;
+		editando = false;
 	}
 
 	public void adicionarLivro() {
@@ -62,5 +74,9 @@ public class ControladorLivro implements Serializable {
 
 	public void verLivro() {
 		livro = livroSelecionado;
+	}
+
+	public void editar() {
+		editando = true;
 	}
 }
