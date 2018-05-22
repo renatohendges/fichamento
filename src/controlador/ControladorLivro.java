@@ -80,4 +80,8 @@ public class ControladorLivro implements Serializable {
 	public void editar() {
 		editando = true;
 	}
+
+	public String alterarFundo() {
+		return (adicionando || editando ? "none" : "lightgrey");
+	}
 }

@@ -29,6 +29,7 @@
 				id="inputTextTitulo"
 				value="#{controladorLivro.livro.titulo}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+				style="background:#{controladorLivro.alterarFundo()}"
 			/>
 			<p:outputLabel
 				id="outputLabelSubTitulo"
@@ -39,6 +40,7 @@
 				id="inputTextSubTitulo"
 				value="#{controladorLivro.livro.subTitulo}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+				style="background:#{controladorLivro.alterarFundo()}"
 			/>
 			<p:outputLabel
 				id="outputLabelAutor"
@@ -49,6 +51,7 @@
 				id="inputTextAutor"
 				value="#{controladorLivro.livro.autor}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+				style="background:#{controladorLivro.alterarFundo()}"
 			/>
 			<p:outputLabel
 				id="outputLabelIsbn"
@@ -59,6 +62,7 @@
 				id="inputTextIsbn"
 				value="#{controladorLivro.livro.isbn}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+				style="background:#{controladorLivro.alterarFundo()}"
 			/>
 		</p:panelGrid>
 		<p:panelGrid
@@ -76,6 +80,7 @@
 				id="inputTextEdicao"
 				value="#{controladorLivro.livro.edicao}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+				style="background:#{controladorLivro.alterarFundo()}"
 			/>
 			<p:outputLabel
 				id="outputLabelCidadePublicacao"
@@ -86,6 +91,7 @@
 				id="inputTextCidadePublicacao"
 				value="#{controladorLivro.livro.cidadePublicacao}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+				style="background:#{controladorLivro.alterarFundo()}"
 			/>
 			<p:outputLabel
 				id="outputLabelEditora"
@@ -96,6 +102,7 @@
 				id="inputTextEditora"
 				value="#{controladorLivro.livro.editora}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+				style="background:#{controladorLivro.alterarFundo()}"
 			/>
 			<p:outputLabel
 				id="outputLabelAnoPublicacao"
@@ -106,6 +113,7 @@
 				id="inputTextAnoPublicacao"
 				value="#{controladorLivro.livro.anoPublicacao}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+				style="background:#{controladorLivro.alterarFundo()}"
 			/>
 		</p:panelGrid>
 	</p:panelGrid>
@@ -129,8 +137,7 @@
 			value="Editar"
 			actionListener="#{controladorLivro.editar()}"
 			update="dataTableLivros panelGridLivroBotoes panelGridLivro"
-			disabled="#{controladorLivro.adicionando or controladorLivro.editando}"
-			oncomplete="PF('dataTableLivros').unselectAllRows()"
+			disabled="#{(controladorLivro.adicionando or controladorLivro.editando) and (controladorLivro.livro==null and controladorLivro.livroSelecionado==null)}"
 			rendered="#{controladorAcesso.usuario.administrador}"
 		/>
 		<p:commandButton
@@ -146,7 +153,6 @@
 			actionListener="#{controladorLivro.cancelar()}"
 			update="dataTableLivros panelGridLivroBotoes panelGridLivro"
 			disabled="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-			oncomplete="PF('dataTableLivros').unselectAllRows()"
 			process="@this"
 		/>
 	</p:panelGrid>
@@ -163,6 +169,9 @@
 		sortBy="#{livro.titulo}"
 		filteredValue="#{controladorLivro.livrosFiltrados}"
 		emptyMessage="Sem livros com esses critérios"
+		paginator="true"
+		rowsPerPageTemplate="5,10,15"
+		paginatorPosition="top"
 	>
 		<p:column
 			headerText="ISBN"
@@ -183,7 +192,7 @@
 		</p:column>
 		<p:ajax
 			event="rowSelect"
-			update=":formConteudo:panelGridLivro"
+			update=":formConteudo:panelGridLivro :formConteudo:panelGridLivroBotoes"
 			listener="#{controladorLivro.verLivro()}"
 		/>
 	</p:dataTable>
