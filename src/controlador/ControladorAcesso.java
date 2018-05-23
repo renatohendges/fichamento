@@ -66,7 +66,8 @@ public class ControladorAcesso implements Serializable {
 			Mensagem.adicionarMensagem(Mensagem.FATAL, "", "Email já cadastrado no sistema");
 			email = "";
 		} else {
-			usuario = servicoAcesso.salvar(new Usuario(nome, email, GerarSenha.gerarSenha()));
+			usuario = new Usuario(nome, email, GerarSenha.gerarSenha());
+			servicoAcesso.salvar(usuario);
 			Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Usuário " + usuario.getNome() + " salvo com sucesso!", "A senha foi enviada ao seu email.");
 			try {
 				EnviarEmail.enviarEmail(usuario.getEmail(), "Esta é a sua senha para acesssar o sistema de Fichamento Bibliográfico.<br/><h1>" + usuario.getSenha() + "</h1>", "Cadastro Fichamento Bibliográfico");

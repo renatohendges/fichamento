@@ -48,9 +48,8 @@ public class ServicoUsuario {
 	}
 
 	@Transactional
-	public Usuario salvar(Usuario usuario) {
+	public void salvar(Usuario usuario) {
 		entityManager.persist(usuario);
-		return usuario;
 	}
 
 	@Transactional

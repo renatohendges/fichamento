@@ -17,15 +17,20 @@ import org.hibernate.validator.constraints.NotEmpty;
 import lombok.Data;
 
 @SuppressWarnings("serial")
-@Entity(name = "livro")
+@Entity(
+	name = "livro")
 @NamedQueries({
-	@NamedQuery(name = Livro.PESQUISAR_POR_TITULO,
+	@NamedQuery(
+		name = Livro.PESQUISAR_POR_TITULO,
 		query = "SELECT l FROM livro l WHERE l.titulo LIKE '%:titulo%'"),
-	@NamedQuery(name = Livro.PESQUISAR_POR_ISBN,
+	@NamedQuery(
+		name = Livro.PESQUISAR_POR_ISBN,
 		query = "SELECT l FROM livro l WHERE l.isbn LIKE '%:isbn%'"),
-	@NamedQuery(name = Livro.PESQUISAR_POR_AUTOR,
+	@NamedQuery(
+		name = Livro.PESQUISAR_POR_AUTOR,
 		query = "SELECT l FROM livro l WHERE l.autor LIKE '%:autor%'"),
-	@NamedQuery(name = Livro.PESQUISAR_TODOS,
+	@NamedQuery(
+		name = Livro.PESQUISAR_TODOS,
 		query = "SELECT l FROM livro l")
 })
 @Data
@@ -37,26 +42,40 @@ public class Livro implements Serializable {
 	public static final String PESQUISAR_POR_AUTOR = "Livro.pesquisarPorAutor";
 	public static final String PESQUISAR_TODOS = "Livro.pesquisarTodos";
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(
+		name = "id_livro")
+	@GeneratedValue(
+		strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column
-	@NotEmpty(message = "o campo título é obrigatório!")
+	@Column(
+		name = "titulo")
+	@NotEmpty(
+		message = "o campo título é obrigatório!")
 	private String titulo;
-	@Column
+	@Column(
+		name = "subtitulo")
 	private String subTitulo;
-	@Column
-	@NotEmpty(message = "O campo autor é obrigatório!")
+	@Column(
+		name = "autor")
+	@NotEmpty(
+		message = "O campo autor é obrigatório!")
 	private String autor;
-	@Column
-	@NotNull(message = "O campo isbn é obrigatório!")
+	@Column(
+		name = "isbn")
+	@NotNull(
+		message = "O campo isbn é obrigatório!")
 	private Integer isbn;
-	@Column
+	@Column(
+		name = "edicao")
 	private Integer edicao;
-	@Column
+	@Column(
+		name = "cidade_publicacao")
 	private String cidadePublicacao;
-	@Column
+	@Column(
+		name = "editora")
 	private String editora;
-	@Column
+	@Column(
+		name = "ano_publicacao")
 	private Integer anoPublicacao;
 
 	public Livro() {

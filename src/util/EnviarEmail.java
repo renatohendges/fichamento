@@ -12,10 +12,11 @@ import javax.mail.internet.MimeMessage;
 
 public abstract class EnviarEmail {
 	public static void enviarEmail(String para, String mensagem, String assunto) throws Exception {
-		String gmail = "fichabiblio@gmail.com";
+		String email = "naoresponder@ficha.tk";
+		String usuario = "fichabiblio";
 		String senha = "Rjhj1981";
-		String servidor = "smtp.gmail.com";
-		Integer porta = 587;
+		String servidor = "mail.smtp2go.com";
+		Integer porta = 2525;
 		Properties propriedades = new Properties();
 
 		propriedades.put("mail.smtp.auth", "true");
@@ -26,17 +27,17 @@ public abstract class EnviarEmail {
 		Session secao = Session.getDefaultInstance(propriedades, new Authenticator() {
 			@SuppressWarnings("unused")
 			protected PasswordAuthentication getPasswordAutentication() {
-				return new PasswordAuthentication(gmail, senha);
+				return new PasswordAuthentication(usuario, senha);
 			}
 		});
 		MimeMessage mineMessage = new MimeMessage(secao);
-		mineMessage.addFrom(InternetAddress.parse(gmail));
+		mineMessage.addFrom(InternetAddress.parse(email));
 		mineMessage.setRecipients(Message.RecipientType.TO, para);
-		mineMessage.setSubject(assunto);
+		mineMessage.setSubject("[NÃO RESPONDA A ESTE EMAIL] " + assunto);
 		mineMessage.setContent(mensagem, "text/html");
 		Transport transport = secao.getTransport();
 		try {
-			transport.connect(servidor, porta, gmail, senha);
+			transport.connect(servidor, porta, usuario, senha);
 			transport.sendMessage(mineMessage, mineMessage.getRecipients(Message.RecipientType.TO));
 		} catch (Exception e) {
 			e.printStackTrace();

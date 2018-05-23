@@ -38,9 +38,8 @@ public class ServicoLivro {
 	}
 
 	@Transactional
-	public Livro salvar(Livro livro) {
+	public void salvar(Livro livro) {
 		entityManager.persist(livro);
-		return livro;
 	}
 
 	@Transactional
