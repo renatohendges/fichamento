@@ -8,6 +8,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.context.RequestContext;
+
 import entidade.Livro;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,9 +45,15 @@ public class ControladorLivro implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		this.livro = new Livro();
-		this.livros = servicoLivro.pesquisarTodos();
+		livro = new Livro();
+		livroSelecionado = null;
+		livros = servicoLivro.pesquisarTodos();
+		adicionando = false;
+		editando = false;
 		controladorMenu.setPagina("/cadastro/livro");
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.execute("PF('dataTableLivros').unselectAllRows()");
+		context.execute("PF('dataTableLivros').clearFilters()");
 	}
 
 	public void salvarLivro() {
@@ -53,7 +61,6 @@ public class ControladorLivro implements Serializable {
 			servicoLivro.salvar(livro);
 			this.livros = servicoLivro.pesquisarTodos();
 			adicionando = false;
-			livro = new Livro();
 		}
 		if (editando) {
 			livro = servicoLivro.atualizar(livro);
@@ -81,7 +88,11 @@ public class ControladorLivro implements Serializable {
 		editando = true;
 	}
 
-	public String alterarFundo() {
-		return (adicionando || editando ? "none" : "lightgrey");
+	public String alterarFundoInputText() {
+		return (editandoAdicionando() ? "none" : "lightgrey");
+	}
+
+	public Boolean editandoAdicionando() {
+		return (adicionando || editando);
 	}
 }

@@ -7,6 +7,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 <ui:composition>
+	<style type="text/css">
+</style>
 	<h1>Livros</h1>
 	<p:panelGrid
 		id="panelGridLivro"
@@ -29,7 +31,7 @@
 				id="inputTextTitulo"
 				value="#{controladorLivro.livro.titulo}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundo()}"
+				style="background:#{controladorLivro.alterarFundoInputText()}"
 			/>
 			<p:outputLabel
 				id="outputLabelSubTitulo"
@@ -40,7 +42,7 @@
 				id="inputTextSubTitulo"
 				value="#{controladorLivro.livro.subTitulo}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundo()}"
+				style="background:#{controladorLivro.alterarFundoInputText()}"
 			/>
 			<p:outputLabel
 				id="outputLabelAutor"
@@ -51,7 +53,7 @@
 				id="inputTextAutor"
 				value="#{controladorLivro.livro.autor}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundo()}"
+				style="background:#{controladorLivro.alterarFundoInputText()}"
 			/>
 			<p:outputLabel
 				id="outputLabelIsbn"
@@ -62,7 +64,7 @@
 				id="inputTextIsbn"
 				value="#{controladorLivro.livro.isbn}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundo()}"
+				style="background:#{controladorLivro.alterarFundoInputText()}"
 			/>
 		</p:panelGrid>
 		<p:panelGrid
@@ -80,7 +82,7 @@
 				id="inputTextEdicao"
 				value="#{controladorLivro.livro.edicao}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundo()}"
+				style="background:#{controladorLivro.alterarFundoInputText()}"
 			/>
 			<p:outputLabel
 				id="outputLabelCidadePublicacao"
@@ -91,7 +93,7 @@
 				id="inputTextCidadePublicacao"
 				value="#{controladorLivro.livro.cidadePublicacao}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundo()}"
+				style="background:#{controladorLivro.alterarFundoInputText()}"
 			/>
 			<p:outputLabel
 				id="outputLabelEditora"
@@ -102,7 +104,7 @@
 				id="inputTextEditora"
 				value="#{controladorLivro.livro.editora}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundo()}"
+				style="background:#{controladorLivro.alterarFundoInputText()}"
 			/>
 			<p:outputLabel
 				id="outputLabelAnoPublicacao"
@@ -113,13 +115,13 @@
 				id="inputTextAnoPublicacao"
 				value="#{controladorLivro.livro.anoPublicacao}"
 				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundo()}"
+				style="background:#{controladorLivro.alterarFundoInputText()}"
 			/>
 		</p:panelGrid>
 	</p:panelGrid>
 	<p:panelGrid
 		id="panelGridLivroBotoes"
-		columns="4"
+		columns="5"
 		styleClass="ui-noborder"
 		style="text-align:right"
 	>
@@ -129,7 +131,7 @@
 			actionListener="#{controladorLivro.adicionarLivro()}"
 			update="dataTableLivros panelGridLivroBotoes panelGridLivro"
 			immediate="true"
-			disabled="#{controladorLivro.adicionando or controladorLivro.editando}"
+			disabled="#{controladorLivro.editandoAdicionando()}"
 			oncomplete="PF('dataTableLivros').unselectAllRows()"
 		/>
 		<p:commandButton
@@ -137,7 +139,7 @@
 			value="Editar"
 			actionListener="#{controladorLivro.editar()}"
 			update="dataTableLivros panelGridLivroBotoes panelGridLivro"
-			disabled="#{(controladorLivro.adicionando or controladorLivro.editando) and (controladorLivro.livro==null and controladorLivro.livroSelecionado==null)}"
+			disabled="#{empty controladorLivro.livroSelecionado}"
 			rendered="#{controladorAcesso.usuario.administrador}"
 		/>
 		<p:commandButton
@@ -145,15 +147,25 @@
 			value="Salvar"
 			actionListener="#{controladorLivro.salvarLivro()}"
 			update="dataTableLivros panelGridLivroBotoes panelGridLivro growl"
-			disabled="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			disabled="#{!controladorLivro.editandoAdicionando()}"
 		/>
 		<p:commandButton
 			id="commandButtonLivrosCancelar"
 			value="Cancelar"
 			actionListener="#{controladorLivro.cancelar()}"
 			update="dataTableLivros panelGridLivroBotoes panelGridLivro"
-			disabled="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			disabled="#{!controladorLivro.editandoAdicionando()}"
+			oncomplete="PF('dataTableLivros').unselectAllRows()"
 			process="@this"
+		/>
+		<p:commandButton
+			id="commandButtonLivrosFichar"
+			value="Fichar"
+			update="panelConteudo"
+			disabled="#{controladorLivro.editando or empty controladorLivro.livroSelecionado}"
+			oncomplete="PF('dataTableLivros').unselectAllRows()"
+			process="@this"
+			style="background: lightgreen;"
 		/>
 	</p:panelGrid>
 	<p:dataTable
@@ -164,19 +176,19 @@
 		selectionMode="single"
 		selection="#{controladorLivro.livroSelecionado}"
 		rowKey="#{livro.id}"
-		rows="10"
-		disabledSelection="#{controladorLivro.adicionando}"
+		rows="5"
+		disabledSelection="#{controladorLivro.editandoAdicionando()}"
 		sortBy="#{livro.titulo}"
 		filteredValue="#{controladorLivro.livrosFiltrados}"
 		emptyMessage="Sem livros com esses critérios"
 		paginator="true"
-		rowsPerPageTemplate="5,10,15"
 		paginatorPosition="top"
 	>
 		<p:column
 			headerText="ISBN"
 			filterBy="#{livro.isbn}"
 			filterMatchMode="contains"
+			style="width:120px;text-align:center;"
 		>
 			<h:outputText value="#{livro.isbn}" />
 		</p:column>
@@ -187,7 +199,10 @@
 		>
 			<h:outputText value="#{livro.titulo}" />
 		</p:column>
-		<p:column headerText="Fichas">
+		<p:column
+			headerText="Fichas Criadas"
+			style="width:70px;text-align:center;"
+		>
 			<h:outputText value="#{livro.titulo}" />
 		</p:column>
 		<p:ajax
