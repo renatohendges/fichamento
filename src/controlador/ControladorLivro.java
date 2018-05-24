@@ -14,6 +14,7 @@ import entidade.Livro;
 import lombok.Getter;
 import lombok.Setter;
 import servico.ServicoLivro;
+import util.Mensagem;
 
 //teste de commit
 @SuppressWarnings("serial")
@@ -60,6 +61,7 @@ public class ControladorLivro implements Serializable {
 		if (adicionando) {
 			servicoLivro.salvar(livro);
 			this.livros = servicoLivro.pesquisarTodos();
+			Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Livro salvo com sucesso!", "Livro salvo com sucesso!");
 			adicionando = false;
 		}
 		if (editando) {
@@ -94,5 +96,9 @@ public class ControladorLivro implements Serializable {
 
 	public Boolean editandoAdicionando() {
 		return (adicionando || editando);
+	}
+
+	public Integer quantidadeFichasPorLivro() {
+		return servicoLivro.quantidadeFichasPorLivro(livro.getId());
 	}
 }

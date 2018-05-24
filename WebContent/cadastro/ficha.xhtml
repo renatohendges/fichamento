@@ -8,5 +8,15 @@
 >
 <ui:composition>
 	<h1>Ficha</h1>
+	<p:dataTable
+		id="dataTableFicha"
+		widgetVar="dataTableFicha"
+		value="#{controladorFicha.fichas}"
+		var="ficha"
+		emptyMessage="Lista vazia"
+		paginator="true"
+		paginatorPosition="top"
+		lazy="true"
+	></p:dataTable>
 </ui:composition>
 </html>

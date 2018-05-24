@@ -9,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import entidade.Ficha;
-import entidade.Livro;
 
 @Named
 @ApplicationScoped
@@ -19,8 +18,13 @@ public class ServicoFicha {
 	private EntityManager entityManager;
 
 	@SuppressWarnings("unchecked")
-	public List<Livro> pesquisarTodos() {
+	public List<Ficha> pesquisarTodos() {
 		return entityManager.createNamedQuery(Ficha.PESQUISAR_TODAS).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Ficha> pesquisarFichaPorLivro(Integer idLivro) {
+		return entityManager.createNamedQuery(Ficha.PESQUISAR_FICHA_POR_LIVRO).setParameter("idLivro", idLivro).getResultList();
 	}
 
 	@Transactional

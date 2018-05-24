@@ -17,17 +17,13 @@ import org.hibernate.validator.constraints.NotBlank;
 import lombok.Data;
 
 @SuppressWarnings("serial")
-@Entity(
-	name = "usuario")
+@Entity(name = "usuario")
 @NamedQueries({
-	@NamedQuery(
-		name = Usuario.PESQUISAR_POR_NOME,
+	@NamedQuery(name = Usuario.PESQUISAR_POR_NOME,
 		query = "SELECT u FROM usuario u WHERE u.nome = :nome"),
-	@NamedQuery(
-		name = Usuario.PESQUISAR_POR_EMAIL,
+	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL,
 		query = "SELECT u FROM usuario u WHERE u.email = :email"),
-	@NamedQuery(
-		name = Usuario.PESQUISAR_POR_EMAIL_SENHA,
+	@NamedQuery(name = Usuario.PESQUISAR_POR_EMAIL_SENHA,
 		query = "SELECT u FROM usuario u WHERE u.email = :email AND u.senha = :senha")
 })
 @Data
@@ -35,33 +31,25 @@ public class Usuario implements Serializable {
 
 	@Transient
 	public static final String PESQUISAR_POR_NOME = "Usuario.pesquisarPorNome";
+	@Transient
 	public static final String PESQUISAR_POR_EMAIL = "Usuario.pesquisarPorEmail";
+	@Transient
 	public static final String PESQUISAR_POR_EMAIL_SENHA = "Usuario.pesquisarPorEmailSenha";
 	@Id
-	@Column(
-		name = "id_usuario")
-	@GeneratedValue(
-		strategy = GenerationType.IDENTITY)
+	@Column(name = "id_usuario")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(
-		name = "nome")
-	@NotBlank(
-		message = "Campo nome é obrigatório!")
+	@Column(name = "nome")
+	@NotBlank(message = "Campo nome é obrigatório!")
 	private String nome;
-	@Column(
-		name = "senha")
-	@NotBlank(
-		message = "Campo senha é obrigatório!")
+	@Column(name = "senha")
+	@NotBlank(message = "Campo senha é obrigatório!")
 	private String senha;
-	@Column(
-		name = "email")
-	@Email(
-		message = "Precisa ser um email válido!")
-	@NotBlank(
-		message = "Campo email é obrigatório!")
+	@Column(name = "email")
+	@Email(message = "Precisa ser um email válido!")
+	@NotBlank(message = "Campo email é obrigatório!")
 	private String email;
-	@Column(
-		name = "administrador")
+	@Column(name = "administrador")
 	private Boolean administrador = false;
 
 	public Usuario() {

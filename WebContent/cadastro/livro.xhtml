@@ -178,9 +178,10 @@
 		disabledSelection="#{controladorLivro.editandoAdicionando()}"
 		sortBy="#{livro.titulo}"
 		filteredValue="#{controladorLivro.livrosFiltrados}"
-		emptyMessage="Sem livros com esses critérios"
+		emptyMessage="Lista vazia"
 		paginator="true"
 		paginatorPosition="top"
+		lazy="true"
 	>
 		<p:column
 			headerText="ISBN"
@@ -201,7 +202,7 @@
 			headerText="Fichas Criadas"
 			style="width:70px;text-align:center;"
 		>
-			<h:outputText value="#{livro.titulo}" />
+			<p:commandLink value="#{livro.id}" />
 		</p:column>
 		<p:ajax
 			event="rowSelect"
@@ -209,5 +210,18 @@
 			listener="#{controladorLivro.verLivro()}"
 		/>
 	</p:dataTable>
+	<p:dialog
+		id="dialogFichasCriadas"
+		widgetVar="dialogFichasCriadas"
+		closeOnEscape="true"
+		modal="true"
+		resizable="false"
+	>
+		<p:dataTable
+			id="dataTableFichasCriadas"
+			widgetVar="dataTableFichasCriadas"
+			value="#{controladorFicha.fichasPorLivro}"
+		></p:dataTable>
+	</p:dialog>
 </ui:composition>
 </html>
