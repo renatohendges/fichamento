@@ -26,9 +26,7 @@ import lombok.Data;
 	@NamedQuery(name = Livro.PESQUISAR_POR_AUTOR,
 		query = "SELECT l FROM livro l WHERE l.autor LIKE '%:autor%'"),
 	@NamedQuery(name = Livro.PESQUISAR_TODOS,
-		query = "SELECT l FROM livro l"),
-	@NamedQuery(name = Livro.QUANTIDADE_FICHAS_POR_LIVRO,
-		query = "SELECT COUNT(f) FROM ficha f WHERE f.id_livro =:idLivro")
+		query = "SELECT l FROM livro l")
 })
 @Data
 public class Livro implements Serializable {

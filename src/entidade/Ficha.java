@@ -20,9 +20,7 @@ import lombok.Data;
 @Entity(name = "ficha")
 @NamedQueries({
 	@NamedQuery(name = Ficha.PESQUISAR_TODAS,
-		query = "SELECT f FROM ficha f"),
-	@NamedQuery(name = Ficha.PESQUISAR_FICHA_POR_LIVRO,
-		query = "SELECT f FROM ficha f WHERE f.id_livro = :idLivro")
+		query = "SELECT f FROM ficha f")
 })
 @Data
 public class Ficha implements Serializable {
