@@ -37,11 +37,6 @@ public class ServicoLivro {
 		return entityManager.createNamedQuery(Livro.PESQUISAR_TODOS).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
-	public Integer quantidadeFichasPorLivro(Integer livro) {
-		return null;
-	}
-
 	@Transactional
 	public void salvar(Livro livro) {
 		entityManager.persist(livro);

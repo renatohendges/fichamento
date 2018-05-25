@@ -8,13 +8,14 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.primefaces.context.RequestContext;
+
 import entidade.Ficha;
 import lombok.Getter;
 import lombok.Setter;
 import servico.ServicoFicha;
 import servico.ServicoLivro;
 
-//teste de commit
 @SuppressWarnings("serial")
 @Named
 @SessionScoped
@@ -39,17 +40,27 @@ public class ControladorFicha implements Serializable {
 	@Getter
 	@Setter
 	private List<Ficha> fichasPorLivro;
+	@Getter
+	@Setter
+	private Boolean adicionando = false;
+	@Getter
+	@Setter
+	private Boolean editando = false;
 
 	@PostConstruct
-	public void init() {
-		controladorMenu.setPagina("/cadastro/ficha");
+	public void inicializar() {
+		ficha = new Ficha();
+		fichaSelecionada = new Ficha();
 		fichas = servicoFicha.pesquisarTodos();
+		adicionando = false;
+		editando = false;
+		controladorMenu.setPagina("/cadastro/ficha");
+		RequestContext context = RequestContext.getCurrentInstance();
+		// context.execute("PF('dataTableFichas').unselectAllRows()");
+		// context.execute("PF('dataTableFichas').clearFilters()");
 	}
 
 	public void salvarFicha() {
-	}
-
-	public void pesquisarFichaPorLivro() {
-		fichasPorLivro = servicoFicha.pesquisarFichaPorLivro(controladorLivro.getLivroSelecionado().getId());
+		servicoFicha.salvar(ficha);
 	}
 }

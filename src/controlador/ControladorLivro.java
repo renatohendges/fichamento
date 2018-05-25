@@ -45,7 +45,7 @@ public class ControladorLivro implements Serializable {
 	private Boolean editando = false;
 
 	@PostConstruct
-	public void init() {
+	public void inicializar() {
 		livro = new Livro();
 		livroSelecionado = null;
 		livros = servicoLivro.pesquisarTodos();
@@ -96,9 +96,5 @@ public class ControladorLivro implements Serializable {
 
 	public Boolean editandoAdicionando() {
 		return (adicionando || editando);
-	}
-
-	public Integer quantidadeFichasPorLivro() {
-		return servicoLivro.quantidadeFichasPorLivro(livro.getId());
 	}
 }

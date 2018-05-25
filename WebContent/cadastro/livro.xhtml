@@ -202,7 +202,17 @@
 			headerText="Fichas Criadas"
 			style="width:70px;text-align:center;"
 		>
-			<p:commandLink value="#{livro.id}" />
+			<p:commandLink
+				id="commandLinkQuantidadeFichas"
+				value="#{livro.quantidadeFichas}"
+			/>
+			<p:tooltip
+				id="tooltipQuantidadeFichas"
+				for="commandLinkQuantidadeFichas"
+				value="Ver fichas criadas para o livro"
+				showEffect="pulsate"
+				hideEffect="clip"
+			/>
 		</p:column>
 		<p:ajax
 			event="rowSelect"

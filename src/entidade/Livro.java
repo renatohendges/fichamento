@@ -39,8 +39,6 @@ public class Livro implements Serializable {
 	public static final String PESQUISAR_POR_AUTOR = "Livro.pesquisarPorAutor";
 	@Transient
 	public static final String PESQUISAR_TODOS = "Livro.pesquisarTodos";
-	@Transient
-	public static final String QUANTIDADE_FICHAS_POR_LIVRO = "Livro.quantidadeFichasPorLivro";
 	@Id
 	@Column(name = "id_livro")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -64,6 +62,8 @@ public class Livro implements Serializable {
 	private String editora;
 	@Column(name = "ano_publicacao")
 	private Integer anoPublicacao;
+	@Column(name = "quantidade_fichas")
+	private Integer quantidadeFichas = 0;
 
 	public Livro() {
 		super();
@@ -76,7 +76,7 @@ public class Livro implements Serializable {
 		this.isbn = isbn;
 	}
 
-	public Livro(String titulo, String subTitulo, String autor, Integer isbn, Integer edicao, String cidadePublicacao, String editora, Integer anoPublicacao) {
+	public Livro(String titulo, String subTitulo, String autor, Integer isbn, Integer edicao, String cidadePublicacao, String editora, Integer anoPublicacao, Integer quantidadeFichas) {
 		super();
 		this.titulo = titulo;
 		this.subTitulo = subTitulo;
@@ -86,5 +86,6 @@ public class Livro implements Serializable {
 		this.cidadePublicacao = cidadePublicacao;
 		this.editora = editora;
 		this.anoPublicacao = anoPublicacao;
+		this.quantidadeFichas = quantidadeFichas;
 	}
 }
