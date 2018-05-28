@@ -5,23 +5,23 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import entidade.Ficha;
+import entidade.Fichamento;
 @Named
 @ApplicationScoped
-public class ServicoFicha {
+public class ServicoFichamento {
 	@Inject
 	@Named("fichaEM")
 	private EntityManager entityManager;
 	@SuppressWarnings("unchecked")
-	public List<Ficha> pesquisarTodos() {
-		return entityManager.createNamedQuery(Ficha.PESQUISAR_TODAS).getResultList();
+	public List<Fichamento> pesquisarTodos() {
+		return entityManager.createNamedQuery(Fichamento.PESQUISAR_TODAS).getResultList();
 	}
 	@Transactional
-	public void salvar(Ficha ficha) {
-		entityManager.persist(ficha);
+	public void salvar(Fichamento fichamento) {
+		entityManager.persist(fichamento);
 	}
 	@Transactional
-	public Ficha atualizar(Ficha ficha) {
-		return entityManager.merge(ficha);
+	public Fichamento atualizar(Fichamento fichamento) {
+		return entityManager.merge(fichamento);
 	}
 }

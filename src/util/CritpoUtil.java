@@ -1,11 +1,8 @@
 package util;
-
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
 public abstract class CritpoUtil {
-
 	public static String stringParaMd5(String valor) {
 		MessageDigest mDigest;
 		try {

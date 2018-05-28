@@ -161,7 +161,7 @@
 			value="Fichar"
 			update="panelConteudo"
 			disabled="#{controladorLivro.editando or empty controladorLivro.livroSelecionado}"
-			oncomplete="PF('dataTableLivros').unselectAllRows()"
+			oncomplete="PF('dialogFichamentosCriados').show()"
 			process="@this"
 			style="background: lightgreen;"
 		/>
@@ -204,7 +204,7 @@
 		>
 			<p:commandLink
 				id="commandLinkQuantidadeFichas"
-				value="#{livro.quantidadeFichas}"
+				value="#{livro.fichamentos.size()}"
 			/>
 			<p:tooltip
 				id="tooltipQuantidadeFichas"
@@ -221,17 +221,24 @@
 		/>
 	</p:dataTable>
 	<p:dialog
-		id="dialogFichasCriadas"
-		widgetVar="dialogFichasCriadas"
+		id="dialogFichamentosCriados"
+		widgetVar="dialogFichamentosCriados"
 		closeOnEscape="true"
 		modal="true"
 		resizable="false"
 	>
 		<p:dataTable
-			id="dataTableFichasCriadas"
-			widgetVar="dataTableFichasCriadas"
-			value="#{controladorFicha.fichasPorLivro}"
+			id="dataTableFichamentosCriados"
+			widgetVar="dataTableFichamentosCriados"
+			value="#{controladorLivro.livro.fichamentos}"
 		></p:dataTable>
 	</p:dialog>
+	<p:blockUI
+		id="blockUILoader"
+		block="formConteudo"
+		trigger="commandButtonLivrosSalvar"
+	>
+		<p:graphicImage value="imagens/loader.gif" />
+	</p:blockUI>
 </ui:composition>
 </html>
