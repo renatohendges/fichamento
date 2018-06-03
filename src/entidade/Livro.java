@@ -40,7 +40,7 @@ public class Livro implements Serializable {
 	private String autor;
 	@Column(name = "isbn")
 	@NotNull(message = "O campo isbn é obrigatório!")
-	private Integer isbn;
+	private Long isbn;
 	@Column(name = "edicao")
 	private Integer edicao;
 	@Column(name = "cidade_publicacao")
@@ -54,13 +54,13 @@ public class Livro implements Serializable {
 	public Livro() {
 		super();
 	}
-	public Livro(String titulo, String autor, Integer isbn) {
+	public Livro(String titulo, String autor, Long isbn) {
 		super();
 		this.titulo = titulo;
 		this.autor = autor;
 		this.isbn = isbn;
 	}
-	public Livro(String titulo, String subTitulo, String autor, Integer isbn, Integer edicao, String cidadePublicacao, String editora, Integer anoPublicacao) {
+	public Livro(String titulo, String subTitulo, String autor, Long isbn, Integer edicao, String cidadePublicacao, String editora, Integer anoPublicacao) {
 		super();
 		this.titulo = titulo;
 		this.subTitulo = subTitulo;

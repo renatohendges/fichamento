@@ -1,11 +1,8 @@
 package controlador;
-
 import java.io.Serializable;
-
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-
 import entidade.Usuario;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,7 +10,6 @@ import servico.ServicoUsuario;
 import util.EnviarEmail;
 import util.GerarSenha;
 import util.Mensagem;
-
 @SuppressWarnings("serial")
 @Named
 @SessionScoped
@@ -21,7 +17,7 @@ public class ControladorAcesso implements Serializable {
 	@Inject
 	private ServicoUsuario servicoAcesso;
 	@Inject
-	private ControladorMenu controladorMenu;
+	private ControladorPagina controladorPagina;
 	@Getter
 	@Setter
 	private Usuario usuario;
@@ -40,14 +36,13 @@ public class ControladorAcesso implements Serializable {
 	@Getter
 	@Setter
 	private Boolean editando = false;
-
 	public void acessar(String pagina) throws Exception {
 		if (emailExiste()) {
 			usuario = servicoAcesso.pesquisarPorEmailSenha(email, senha);
 			if (usuario == null) {
 				Mensagem.adicionarMensagem(Mensagem.FATAL, "", "Senha incorreta!");
 			} else {
-				controladorMenu.setPagina(pagina);
+				controladorPagina.setPagina(pagina);
 				ativo = true;
 				Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Acesso concedido!", "Seja bem vindo " + usuario.getNome() + "!");
 			}
@@ -55,12 +50,10 @@ public class ControladorAcesso implements Serializable {
 			Mensagem.adicionarMensagem(Mensagem.FATAL, email, "Email não cadastrado no sistema!");
 		}
 	}
-
 	public void sair(String pagina) {
 		ativo = false;
-		controladorMenu.setPagina(pagina);
+		controladorPagina.setPagina(pagina);
 	}
-
 	public void salvarUsuario(String pagina) {
 		if (emailExiste()) {
 			Mensagem.adicionarMensagem(Mensagem.FATAL, "", "Email já cadastrado no sistema");
@@ -74,10 +67,9 @@ public class ControladorAcesso implements Serializable {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			controladorMenu.setPagina(pagina);
+			controladorPagina.setPagina(pagina);
 		}
 	}
-
 	public void alterar(String pagina) {
 		usuario = servicoAcesso.atualizar(usuario);
 		try {
@@ -88,13 +80,12 @@ public class ControladorAcesso implements Serializable {
 		Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Editado", "Usuário " + usuario.getNome() + " editado com sucesso!");
 		editando = false;
 	}
-
 	public void reenviarSenha(String pagina) {
 		if (emailExiste()) {
 			usuario = servicoAcesso.pesquisarPorEmail(email);
 			try {
 				EnviarEmail.enviarEmail(usuario.getEmail(), "Esta é a sua senha.<br/><h1>" + usuario.getSenha() + "</h1>", "Reenvio de senha Fichamento Bibliográfico");
-				controladorMenu.setPagina(pagina);
+				controladorPagina.setPagina(pagina);
 				Mensagem.adicionarMensagem(Mensagem.INFORMACAO, "Senha enviada!", "Senha enviada ao email " + usuario.getEmail());
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -103,7 +94,6 @@ public class ControladorAcesso implements Serializable {
 			Mensagem.adicionarMensagem(Mensagem.FATAL, email, "Email não cadastrado no sistema!");
 		}
 	}
-
 	private Boolean emailExiste() {
 		if (servicoAcesso.pesquisarPorEmail(email) != null) {
 			return true;

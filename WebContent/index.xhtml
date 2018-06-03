@@ -28,146 +28,183 @@
 		showSummary="true"
 		showDetail="true"
 	/>
-	<div align="center">
-		<p:layout
-			fullPage="true"
-			id="layoutPagina"
+	<p:layout
+		fullPage="true"
+		id="layoutPagina"
+	>
+		<p:layoutUnit
+			position="north"
+			id="layoutUnitNorte"
+			style="border:none;"
+			gutter="0"
 		>
-			<p:layoutUnit
-				position="north"
-				id="layoutUnitNorte"
-			>
-				<p:panel style="background-color:green; height:90%;">
-					<p:graphicImage url="imagens/senai.png" />
-					<br />
-					<font
-						size="10"
-						color="white"
-					>Fichamento Bibliográfico</font>
-				</p:panel>
-			</p:layoutUnit>
-			<p:layoutUnit
-				position="west"
-				id="layoutUnitOeste"
-			>
-				<ui:insert name="menu">
-					<h:form id="formMenu">
-						<h:panelGroup id="panelMenu">
-							<p:commandButton
-								value="Início"
-								icon="fa fa-fw fa-home"
-								action="#{controladorMenu.setPagina('apresentacao')}"
-								update=":formConteudo:panelConteudo"
-								immediate="true"
-							/>
-							<p:menu id="menu">
-								<p:submenu
-									id="menuCadastro"
-									label="Cadastro"
-									icon="fa fa-fw fa-edit"
-									rendered="#{!controladorAcesso.ativo}"
-								>
-									<p:menuitem
-										icon="fa fa-fw fa-user-plus"
-										value="Cadastrar"
-										action="#{controladorMenu.setPagina('cadastrarusuario')}"
-										update=":formConteudo:panelConteudo"
-										immediate="true"
-										ajax="false"
-									/>
-									<p:menuitem
-										icon="fa fa-fw fa-mail-reply"
-										value="Reenviar senha"
-										action="#{controladorMenu.setPagina('reenviarsenha')}"
-										update=":formConteudo:panelConteudo"
-										immediate="true"
-										ajax="false"
-									/>
-									<p:menuitem
-										icon="fa fa-fw fa-check"
-										value="Acessar"
-										action="#{controladorMenu.setPagina('acesso')}"
-										update=":formConteudo:panelConteudo"
-										immediate="true"
-										ajax="false"
-									/>
-								</p:submenu>
-								<p:submenu
-									id="menuSistema"
-									rendered="#{controladorAcesso.ativo}"
-									label="Sistema"
-									icon="fa fa-fw fa fa-institution"
-								>
-									<p:menuitem
-										id="menuItemLivros"
-										icon="fa fa-fw fa-book"
-										value="Livros"
-										update=":formConteudo:panelConteudo"
-										immediate="true"
-										ajax="false"
-										actionListener="#{controladorLivro.inicializar()}"
-									>
-									</p:menuitem>
-									<p:menuitem
-										id="menuItemFichamentos"
-										icon="fa fa-fw fa-book"
-										value="Fichamentos"
-										update=":formConteudo:panelConteudo"
-										immediate="true"
-										ajax="false"
-										actionListener="#{controladorFicha.inicializar()}"
-									>
-									</p:menuitem>
-								</p:submenu>
-							</p:menu>
-							<p:panelGrid
-								id="panelgridInformacoesUsuario"
-								columns="1"
-								rendered="#{controladorAcesso.ativo}"
-								styleClass="ui-noborder"
-								style="text-align:center"
+			<p:panel style="height:95%;background:green;text-align:center;">
+				<p:graphicImage url="imagens/senai.png" />
+				<br />
+				<font
+					size="10"
+					color="white"
+				>Fichamento Bibliográfico</font>
+			</p:panel>
+		</p:layoutUnit>
+		<p:layoutUnit
+			position="west"
+			id="layoutUnitOeste"
+			collapsible="true"
+			header="Menu"
+			gutter="0"
+			style="text-align:center"
+		>
+			<h:form id="formMenu">
+				<div align="center">
+					<h:panelGroup id="panelMenu">
+						<p:commandButton
+							value="Início"
+							icon="fa fa-fw fa-home"
+							action="#{controladorPagina.setPagina('apresentacao')}"
+							update=":formConteudo:panelConteudo"
+							immediate="true"
+						/>
+						<p:menu
+							id="menu"
+							style="background:none;padding:0px"
+							styleClass="ui-menuitem-text"
+						>
+							<p:submenu
+								id="menuCadastro"
+								label="Cadastro"
+								icon="fa fa-fw fa-edit"
+								rendered="#{!controladorAcesso.ativo}"
+								expanded="true"
 							>
-								<p:outputLabel value="Usuário" />
-								<p:outputLabel value="#{controladorAcesso.usuario.nome}" />
-								<p:commandButton
-									id="commandbuttonPerfilUsuario"
-									value="Perfil do usuário"
-									actionListener="#{controladorMenu.setPagina('/cadastro/perfilusuario')}"
+								<p:menuitem
+									icon="fa fa-fw fa-user-plus"
+									value="Cadastrar"
+									action="#{controladorPagina.setPagina('cadastrarusuario')}"
+									update=":formConteudo:panelConteudo"
 									immediate="true"
-									update=":formConteudo:panelConteudo :formMenu:panelMenu"
+									ajax="false"
 								/>
-								<p:commandButton
-									id="commandbuttonSair"
-									value="Sair"
-									actionListener="#{controladorAcesso.sair('apresentacao')}"
+								<p:menuitem
+									icon="fa fa-fw fa-mail-reply"
+									value="Reenviar senha"
+									action="#{controladorPagina.setPagina('reenviarsenha')}"
+									update=":formConteudo:panelConteudo"
 									immediate="true"
-									update=":formConteudo:panelConteudo :formMenu:panelMenu"
+									ajax="false"
 								/>
-							</p:panelGrid>
-						</h:panelGroup>
-					</h:form>
-				</ui:insert>
-			</p:layoutUnit>
-			<p:layoutUnit
-				position="center"
-				id="layoutUnitCentro"
+								<p:menuitem
+									icon="fa fa-fw fa-check"
+									value="Acessar"
+									action="#{controladorPagina.setPagina('acesso')}"
+									update=":formConteudo:panelConteudo"
+									immediate="true"
+									ajax="false"
+								/>
+							</p:submenu>
+							<p:submenu
+								id="menuSistema"
+								rendered="#{controladorAcesso.ativo}"
+								label="Sistema"
+								icon="fa fa-fw fa fa-institution"
+							>
+								<p:menuitem
+									id="menuItemLivros"
+									icon="fa fa-fw fa-book"
+									value="Livros"
+									update=":formConteudo:panelConteudo"
+									immediate="true"
+									ajax="false"
+									actionListener="#{controladorLivro.inicializar()}"
+									style="background:#{controladorPagina.pagina=='/cadastro/livro'?'lightgrey':''}"
+								>
+								</p:menuitem>
+								<p:menuitem
+									id="menuItemFichamentos"
+									icon="fa fa-fw fa-list-ul"
+									value="Fichamentos"
+									update=":formConteudo:panelConteudo"
+									immediate="true"
+									ajax="false"
+									actionListener="#{controladorFichamento.inicializar()}"
+									style="background:#{controladorPagina.pagina=='/cadastro/fichamento'?'lightgrey':''}"
+								>
+								</p:menuitem>
+							</p:submenu>
+						</p:menu>
+						<p:panelGrid
+							id="panelgridInformacoesUsuario"
+							columns="1"
+							rendered="#{controladorAcesso.ativo}"
+							styleClass="ui-noborder"
+							style="text-align:center"
+						>
+							<p:outputLabel value="Usuário:" />
+							<p:outputLabel value="#{controladorAcesso.usuario.nome}" />
+							<p:commandButton
+								id="commandbuttonPerfilUsuario"
+								value="Perfil do usuário"
+								actionListener="#{controladorPagina.setPagina('/cadastro/perfilusuario')}"
+								immediate="true"
+								update=":formConteudo:panelConteudo :formMenu:panelMenu"
+							/>
+							<p:commandButton
+								id="commandbuttonSair"
+								value="Sair"
+								actionListener="#{controladorAcesso.sair('apresentacao')}"
+								immediate="true"
+								update=":formConteudo:panelConteudo :formMenu:panelMenu"
+							/>
+						</p:panelGrid>
+					</h:panelGroup>
+				</div>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit
+			position="center"
+			id="layoutUnitCentro"
+			style="text-align:center"
+			gutter="0"
+		>
+			<h:form
+				id="formConteudo"
+				enctype="multipart/form-data"
 			>
-				<h:form
-					id="formConteudo"
-					enctype="multipart/form-data"
-				>
-					<p:panel id="panelConteudo">
-						<ui:include src="#{controladorMenu.pagina}.xhtml" />
+				<div align="center">
+					<p:panel
+						id="panelConteudo"
+						style="border:none;"
+					>
+						<ui:include src="#{controladorPagina.pagina}.xhtml" />
 					</p:panel>
-				</h:form>
-			</p:layoutUnit>
-			<p:layoutUnit
-				position="south"
-				id="layoutUnitSul"
-			>
-					Senai Florianópolis - TCC Renato José Hendges Júnior
-			</p:layoutUnit>
-		</p:layout>
-	</div>
+				</div>
+			</h:form>
+		</p:layoutUnit>
+		<p:layoutUnit
+			position="south"
+			id="layoutUnitSul"
+			style="border:none;"
+		>
+			<p:panel style="height:81%;background:green;text-align:center;">
+				<font color="white"><b>Senai Florianópolis - TCC Renato José Hendges Júnior</b></font>
+			</p:panel>
+		</p:layoutUnit>
+	</p:layout>
+	<p:dialog
+		id="dialogFichamentosCriados"
+		header="#{controladorLivro.livroSelecionado.titulo}"
+		widgetVar="dialogFichamentosCriados"
+		minHeight="40"
+		showEffect="clip"
+		hideEffect="clip"
+		closeOnEscape="true"
+		draggable="true"
+		resizable="false"
+		showHeader="true"
+		dynamic="true"
+		modal="true"
+	>
+		<h:outputText value="Resistance to PrimeFaces is futile!" />
+	</p:dialog>
 </h:body>
 </html>

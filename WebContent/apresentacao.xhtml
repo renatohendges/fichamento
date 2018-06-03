@@ -6,13 +6,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 <div align="center">
-	<h1>Trabalho de Conclusão de Curso - SENAI / Floranópolis</h1>
+	<h1>Trabalho de Conclusão de Curso - SENAI / Florianópolis</h1>
 </div>
 <div align="center">
 	<p:commandButton
 		value="Acessar"
 		id="acessar"
-		action="#{controladorMenu.setPagina('acesso')}"
+		action="#{controladorPagina.setPagina('acesso')}"
 		rendered="#{!controladorAcesso.ativo}"
 		update=":formConteudo:panelConteudo"
 		ajax="false"

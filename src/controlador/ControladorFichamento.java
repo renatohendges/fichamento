@@ -14,7 +14,7 @@ import servico.ServicoFichamento;
 @SessionScoped
 public class ControladorFichamento implements Serializable {
 	@Inject
-	private ControladorMenu controladorMenu;
+	private ControladorPagina controladorPagina;
 	// @Inject
 	// private ControladorLivro controladorLivro;
 	// @Inject
@@ -43,7 +43,7 @@ public class ControladorFichamento implements Serializable {
 		fichamentos = servicoFichamento.pesquisarTodos();
 		adicionando = false;
 		editando = false;
-		controladorMenu.setPagina("/cadastro/fichamento");
+		controladorPagina.setPagina("/cadastro/fichamento");
 		// RequestContext context = RequestContext.getCurrentInstance();
 		// context.execute("PF('dataTableFichamentos').unselectAllRows()");
 		// context.execute("PF('dataTableFichamentos').clearFilters()");

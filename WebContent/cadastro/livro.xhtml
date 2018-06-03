@@ -7,121 +7,110 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 >
 <ui:composition>
-	<h1>Livros</h1>
 	<p:panelGrid
 		id="panelGridLivro"
-		columns="2"
+		columns="4"
 		styleClass="ui-noborder"
 		style="text-align:right"
 	>
-		<p:panelGrid
-			id="panelGridLivroInterna1"
-			columns="2"
-			styleClass="ui-noborder"
-			style="text-align:right"
-		>
-			<p:outputLabel
-				id="outputLabelTitulo"
-				for="inputTextTitulo"
-				value="Título:"
-			/>
-			<p:inputText
-				id="inputTextTitulo"
-				value="#{controladorLivro.livro.titulo}"
-				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundoInputText()}"
-			/>
-			<p:outputLabel
-				id="outputLabelSubTitulo"
-				for="inputTextSubTitulo"
-				value="Sub Título:"
-			/>
-			<p:inputText
-				id="inputTextSubTitulo"
-				value="#{controladorLivro.livro.subTitulo}"
-				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundoInputText()}"
-			/>
-			<p:outputLabel
-				id="outputLabelAutor"
-				for="inputTextAutor"
-				value="Autor:"
-			/>
-			<p:inputText
-				id="inputTextAutor"
-				value="#{controladorLivro.livro.autor}"
-				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundoInputText()}"
-			/>
-			<p:outputLabel
-				id="outputLabelIsbn"
-				for="inputTextIsbn"
-				value="Isbn:"
-			/>
-			<p:inputText
-				id="inputTextIsbn"
-				value="#{controladorLivro.livro.isbn}"
-				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundoInputText()}"
-			/>
-		</p:panelGrid>
-		<p:panelGrid
-			id="panelGridLivroInterna2"
-			columns="2"
-			styleClass="ui-noborder"
-			style="text-align:right"
-		>
-			<p:outputLabel
-				id="outputLabelEdicao"
-				for="inputTextEdicao"
-				value="Edição:"
-			/>
-			<p:inputText
-				id="inputTextEdicao"
-				value="#{controladorLivro.livro.edicao}"
-				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundoInputText()}"
-			/>
-			<p:outputLabel
-				id="outputLabelCidadePublicacao"
-				for="inputTextCidadePublicacao"
-				value="Cidade de Publicação:"
-			/>
-			<p:inputText
-				id="inputTextCidadePublicacao"
-				value="#{controladorLivro.livro.cidadePublicacao}"
-				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundoInputText()}"
-			/>
-			<p:outputLabel
-				id="outputLabelEditora"
-				for="inputTextEditora"
-				value="Editora:"
-			/>
-			<p:inputText
-				id="inputTextEditora"
-				value="#{controladorLivro.livro.editora}"
-				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundoInputText()}"
-			/>
-			<p:outputLabel
-				id="outputLabelAnoPublicacao"
-				for="inputTextAnoPublicacao"
-				value="Ano Publicação:"
-			/>
-			<p:inputText
-				id="inputTextAnoPublicacao"
-				value="#{controladorLivro.livro.anoPublicacao}"
-				readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
-				style="background:#{controladorLivro.alterarFundoInputText()}"
-			/>
-		</p:panelGrid>
+		<p:outputLabel
+			id="outputLabelTitulo"
+			for="inputTextTitulo"
+			value="Título:"
+		/>
+		<p:inputText
+			id="inputTextTitulo"
+			value="#{controladorLivro.livro.titulo}"
+			readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			style="background:#{controladorLivro.alterarFundoInputText()}"
+		/>
+		<p:outputLabel
+			id="outputLabelSubTitulo"
+			for="inputTextSubTitulo"
+			value="Sub Título:"
+		/>
+		<p:inputText
+			id="inputTextSubTitulo"
+			value="#{controladorLivro.livro.subTitulo}"
+			readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			style="background:#{controladorLivro.alterarFundoInputText()}"
+		/>
+		<p:outputLabel
+			id="outputLabelAutor"
+			for="inputTextAutor"
+			value="Autor:"
+		/>
+		<p:inputText
+			id="inputTextAutor"
+			value="#{controladorLivro.livro.autor}"
+			readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			style="background:#{controladorLivro.alterarFundoInputText()}"
+		/>
+		<p:outputLabel
+			id="outputLabelIsbn"
+			for="inputTextIsbn"
+			value="Isbn:"
+		/>
+		<p:inputText
+			id="inputTextIsbn"
+			value="#{controladorLivro.livro.isbn}"
+			readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			style="background:#{controladorLivro.alterarFundoInputText()}"
+			onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+			maxlength="13"
+		/>
+		<p:outputLabel
+			id="outputLabelEdicao"
+			for="inputTextEdicao"
+			value="Edição:"
+		/>
+		<p:inputText
+			id="inputTextEdicao"
+			value="#{controladorLivro.livro.edicao}"
+			readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			style="background:#{controladorLivro.alterarFundoInputText()}"
+		/>
+		<p:outputLabel
+			id="outputLabelCidadePublicacao"
+			for="inputTextCidadePublicacao"
+			value="Cidade de Publicação:"
+		/>
+		<p:inputText
+			id="inputTextCidadePublicacao"
+			value="#{controladorLivro.livro.cidadePublicacao}"
+			readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			style="background:#{controladorLivro.alterarFundoInputText()}"
+		/>
+		<p:outputLabel
+			id="outputLabelEditora"
+			for="inputTextEditora"
+			value="Editora:"
+		/>
+		<p:inputText
+			id="inputTextEditora"
+			value="#{controladorLivro.livro.editora}"
+			readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			style="background:#{controladorLivro.alterarFundoInputText()}"
+		/>
+		<p:outputLabel
+			id="outputLabelAnoPublicacao"
+			for="inputTextAnoPublicacao"
+			value="Ano Publicação:"
+		/>
+		<p:inputText
+			id="inputTextAnoPublicacao"
+			value="#{controladorLivro.livro.anoPublicacao}"
+			readonly="#{!controladorLivro.adicionando and !controladorLivro.editando}"
+			style="background:#{controladorLivro.alterarFundoInputText()}"
+			placeholder="Ano com 4 digitos!"
+			onkeypress="if(event.which &lt; 48 || event.which &gt; 57) return false;"
+			maxlength="4"
+		/>
 	</p:panelGrid>
-	<p:panelGrid
+	<h:panelGroup
 		id="panelGridLivroBotoes"
 		columns="5"
-		styleClass="ui-noborder"
-		style="text-align:right"
+		style="text-align:center"
 	>
 		<p:commandButton
 			id="commandButtonLivrosAdicionar"
@@ -161,33 +150,54 @@
 			value="Fichar"
 			update="panelConteudo"
 			disabled="#{controladorLivro.editando or empty controladorLivro.livroSelecionado}"
-			oncomplete="PF('dialogFichamentosCriados').show()"
 			process="@this"
 			style="background: lightgreen;"
 		/>
-	</p:panelGrid>
+	</h:panelGroup>
 	<p:dataTable
 		id="dataTableLivros"
 		widgetVar="dataTableLivros"
-		value="#{controladorLivro.livros}"
 		var="livro"
+		value="#{controladorLivro.livros}"
 		selectionMode="single"
 		selection="#{controladorLivro.livroSelecionado}"
 		rowKey="#{livro.id}"
-		rows="5"
 		disabledSelection="#{controladorLivro.editandoAdicionando()}"
-		sortBy="#{livro.titulo}"
 		filteredValue="#{controladorLivro.livrosFiltrados}"
 		emptyMessage="Lista vazia"
 		paginator="true"
-		paginatorPosition="top"
-		lazy="true"
+		paginatorPosition="bottom"
+		lazy="false"
+		sortBy="#{livro.titulo}"
 	>
+		<f:facet name="header">
+			<p:outputPanel style="text-align:right;">
+				<h:outputText value="Pesquisar:" />
+				<p:inputText
+					id="globalFilter"
+					onkeyup="PF('dataTableLivros').filter()"
+					style="width:150px"
+				/>
+				<p:button
+					id="buttonLimparFiltros"
+					onclick="PF('dataTableLivros').unselectAllRows()"
+					icon="fa fa-fw fa-ban"
+				>
+					<p:tooltip
+						value="Limpar filtros"
+						showEffect="clip"
+						hideEffect="clip"
+					/>
+				</p:button>
+			</p:outputPanel>
+		</f:facet>
 		<p:column
 			headerText="ISBN"
-			filterBy="#{livro.isbn}"
 			filterMatchMode="contains"
+			filterBy="#{livro.isbn}"
+			filterable="false"
 			style="width:120px;text-align:center;"
+			sortBy="#{livro.isbn}"
 		>
 			<h:outputText value="#{livro.isbn}" />
 		</p:column>
@@ -195,24 +205,43 @@
 			headerText="Título"
 			filterBy="#{livro.titulo}"
 			filterMatchMode="contains"
+			filterable="false"
+			style="text-align:center;"
+			sortBy="#{livro.titulo}"
 		>
 			<h:outputText value="#{livro.titulo}" />
 		</p:column>
 		<p:column
-			headerText="Fichas Criadas"
-			style="width:70px;text-align:center;"
+			headerText="Autor"
+			filterMatchMode="contains"
+			filterBy="#{livro.autor}"
+			filterable="false"
+			style="width:300px;text-align:center;"
+			sortBy="#{livro.autor}"
 		>
-			<p:commandLink
-				id="commandLinkQuantidadeFichas"
+			<h:outputText value="#{livro.isbn}" />
+		</p:column>
+		<p:column
+			headerText="Fichamentos criados"
+			style="width:75px;text-align:center;"
+			sortBy="#{livro.fichamentos.size()}"
+		>
+			<p:commandButton
+				id="commandButtonLivrosFichamentosCriados"
 				value="#{livro.fichamentos.size()}"
-			/>
-			<p:tooltip
-				id="tooltipQuantidadeFichas"
-				for="commandLinkQuantidadeFichas"
-				value="Ver fichas criadas para o livro"
-				showEffect="pulsate"
-				hideEffect="clip"
-			/>
+				oncomplete="PF('dialogFichamentosCriados').show();"
+				update="dialogFichamentosCriados"
+			>
+				<f:setPropertyActionListener
+					value="#{livro}"
+					target="#{controladorLivro.livroSelecionado}"
+				/>
+				<p:tooltip
+					value="Ver fichamentos Criados"
+					showEffect="clip"
+					hideEffect="clip"
+				/>
+			</p:commandButton>
 		</p:column>
 		<p:ajax
 			event="rowSelect"
@@ -220,19 +249,6 @@
 			listener="#{controladorLivro.verLivro()}"
 		/>
 	</p:dataTable>
-	<p:dialog
-		id="dialogFichamentosCriados"
-		widgetVar="dialogFichamentosCriados"
-		closeOnEscape="true"
-		modal="true"
-		resizable="false"
-	>
-		<p:dataTable
-			id="dataTableFichamentosCriados"
-			widgetVar="dataTableFichamentosCriados"
-			value="#{controladorLivro.livro.fichamentos}"
-		></p:dataTable>
-	</p:dialog>
 	<p:blockUI
 		id="blockUILoader"
 		block="formConteudo"

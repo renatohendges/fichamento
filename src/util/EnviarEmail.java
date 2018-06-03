@@ -8,12 +8,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 public abstract class EnviarEmail {
-	public static void enviarEmail(String para, String mensagem, String assunto) throws Exception {
-		String email = "naoresponder@ficha.tk";
-		String usuario = "fichabiblio";
+	public static void enviarEmail(String destinatario, String corpoMensagem, String assunto) throws Exception {
+		String remetente = "fichabiblio@gmail.com";
 		String senha = "Rjhj1981";
-		String servidor = "mail.smtp2go.com";
-		Integer porta = 2525;
+		String servidor = "smtp.gmail.com";
+		Integer porta = 587;
 		Properties propriedades = new Properties();
 		propriedades.put("mail.smtp.auth", "true");
 		propriedades.put("mail.smtp.starttls.enable", "true");
@@ -23,18 +22,18 @@ public abstract class EnviarEmail {
 		Session secao = Session.getDefaultInstance(propriedades, new Authenticator() {
 			@SuppressWarnings("unused")
 			protected PasswordAuthentication getPasswordAutentication() {
-				return new PasswordAuthentication(usuario, senha);
+				return new PasswordAuthentication(remetente, senha);
 			}
 		});
-		MimeMessage mineMessage = new MimeMessage(secao);
-		mineMessage.addFrom(InternetAddress.parse(email));
-		mineMessage.setRecipients(Message.RecipientType.TO, para);
-		mineMessage.setSubject("[NÃO RESPONDA A ESTE EMAIL] " + assunto);
-		mineMessage.setContent(mensagem, "text/html");
+		MimeMessage mensagem = new MimeMessage(secao);
+		mensagem.addFrom(InternetAddress.parse(remetente));
+		mensagem.setSubject("[NÃO RESPONDA A ESTE EMAIL] " + assunto);
+		mensagem.setContent(corpoMensagem, "text/html");
+		mensagem.setRecipients(Message.RecipientType.TO, destinatario);
 		Transport transport = secao.getTransport();
 		try {
-			transport.connect(servidor, porta, usuario, senha);
-			transport.sendMessage(mineMessage, mineMessage.getRecipients(Message.RecipientType.TO));
+			transport.connect(servidor, porta, remetente, senha);
+			transport.sendMessage(mensagem, mensagem.getRecipients(Message.RecipientType.TO));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

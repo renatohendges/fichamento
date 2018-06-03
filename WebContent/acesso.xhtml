@@ -51,14 +51,14 @@
 			id="buttonCadastrar"
 			value="Cadastrar"
 			icon="fa fa-fw fa-user-plus"
-			action="#{controladorMenu.setPagina('cadastrarusuario')}"
+			action="#{controladorPagina.setPagina('cadastrarusuario')}"
 			update=":formConteudo:panelConteudo :formMenu:panelMenu"
 			immediate="true"
 		/>
 		<p:commandButton
+			id="buttonEsqueciSenha"
 			value="Esqueci a senha"
 			icon="fa fa-fw fa-key"
-			id="buttonEsqueciSenha"
 			action="#{controladorAcesso.reenviarSenha('acesso')}"
 			update=":formConteudo:panelConteudo :formMenu:panelMenu growl"
 			process="inputTextEmail buttonEsqueciSenha"
@@ -67,7 +67,8 @@
 	<p:blockUI
 		id="blockUILoader"
 		block="formConteudo"
-		trigger="buttonCadastrar buttonEsqueciSenha buttonAcessar"
+		trigger="buttonEsqueciSenha"
+		animate="true"
 	>
 		<p:graphicImage value="imagens/loader.gif" />
 	</p:blockUI>
