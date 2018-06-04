@@ -7,15 +7,15 @@ import javax.inject.Named;
 @Named
 @SessionScoped
 public class ControladorPagina implements Serializable {
-	public String getPagina() {
-		return pagina;
-	}
+	private String pagina;
 	@PostConstruct
 	public void init() {
 		pagina = "apresentacao";
 	}
+	public String getPagina() {
+		return pagina;
+	}
 	public void setPagina(String pagina) {
 		this.pagina = pagina;
 	}
-	private String pagina;
 }

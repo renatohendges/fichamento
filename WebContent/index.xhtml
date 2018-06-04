@@ -62,13 +62,12 @@
 							value="Início"
 							icon="fa fa-fw fa-home"
 							action="#{controladorPagina.setPagina('apresentacao')}"
-							update=":formConteudo:panelConteudo"
+							update=":formConteudo:panelConteudo menu"
 							immediate="true"
 						/>
 						<p:menu
 							id="menu"
 							style="background:none;padding:0px"
-							styleClass="ui-menuitem-text"
 						>
 							<p:submenu
 								id="menuCadastro"
@@ -84,6 +83,7 @@
 									update=":formConteudo:panelConteudo"
 									immediate="true"
 									ajax="false"
+									style="font-weight: bold;background:#{controladorPagina.pagina=='cadastrarusuario'?'lightgrey':''};"
 								/>
 								<p:menuitem
 									icon="fa fa-fw fa-mail-reply"
@@ -92,6 +92,7 @@
 									update=":formConteudo:panelConteudo"
 									immediate="true"
 									ajax="false"
+									style="font-weight: bold;background:#{controladorPagina.pagina=='reenviarsenha'?'lightgrey':''}"
 								/>
 								<p:menuitem
 									icon="fa fa-fw fa-check"
@@ -100,6 +101,7 @@
 									update=":formConteudo:panelConteudo"
 									immediate="true"
 									ajax="false"
+									style="font-weight: bold;background:#{controladorPagina.pagina=='acesso'?'lightgrey':''}"
 								/>
 							</p:submenu>
 							<p:submenu
@@ -110,24 +112,24 @@
 							>
 								<p:menuitem
 									id="menuItemLivros"
-									icon="fa fa-fw fa-book"
+									icon="fa fa-book"
 									value="Livros"
 									update=":formConteudo:panelConteudo"
 									immediate="true"
 									ajax="false"
-									actionListener="#{controladorLivro.inicializar()}"
-									style="background:#{controladorPagina.pagina=='/cadastro/livro'?'lightgrey':''}"
+									actionListener="#{controladorPagina.setPagina('cadastro/livro')}"
+									style="font-weight: bold;background:#{controladorPagina.pagina=='cadastro/livro'?'lightgrey':''}"
 								>
 								</p:menuitem>
 								<p:menuitem
 									id="menuItemFichamentos"
-									icon="fa fa-fw fa-list-ul"
+									icon="fa fa-list-ul"
 									value="Fichamentos"
 									update=":formConteudo:panelConteudo"
 									immediate="true"
 									ajax="false"
-									actionListener="#{controladorFichamento.inicializar()}"
-									style="background:#{controladorPagina.pagina=='/cadastro/fichamento'?'lightgrey':''}"
+									actionListener="#{controladorPagina.setPagina('cadastro/fichamento')}"
+									style="font-weight: bold;background:#{controladorPagina.pagina=='cadastro/fichamento'?'lightgrey':''}"
 								>
 								</p:menuitem>
 							</p:submenu>

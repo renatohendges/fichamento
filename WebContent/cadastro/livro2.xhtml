@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+>
+<ui:composition>
+	<h:panelGroup
+		id="panelGridLivroBotoes"
+		columns="5"
+		style="text-align:center"
+	>
+		<p:commandButton
+			id="commandButtonLivrosAdicionar"
+			value="Adicionar"
+			actionListener="#{controladorLivro.adicionarLivro()}"
+			update="dataTableLivros panelGridLivroBotoes "
+			oncomplete="PF('dataTableLivros').unselectAllRows(); PF('dataTableLivros').clearFilters();"
+			disabled="#{controladorLivro.editandoAdicionando()}"
+		/>
+		<p:commandButton
+			id="commandButtonLivrosCancelar"
+			value="Cancelar"
+			actionListener="#{controladorLivro.cancelar()}"
+			update="dataTableLivros panelGridLivroBotoes "
+			disabled="#{!controladorLivro.editandoAdicionando()}"
+			immediate="true"
+		/>
+	</h:panelGroup>
+	<p:dataTable
+		id="dataTableLivros"
+		widgetVar="dataTableLivros"
+		value="#{controladorLivro.livros}"
+		var="livro"
+		filteredValue="#{controladorLivro.livrosFiltrados}"
+		emptyMessage="Lista vazia"
+	>
+		<f:facet name="header">
+			<p:outputPanel style="text-align:right;">
+				<h:outputText value="Pesquisar:   " />
+				<p:inputText
+					id="globalFilter"
+					onkeyup="PF('dataTableLivros').filter()"
+					style="width:150px"
+					disabled="#{controladorLivro.editandoAdicionando()}"
+				/>
+				<p:button
+					id="buttonLimparFiltros"
+					icon="fa fa-fw fa-ban"
+					onclick="PF('dataTableLivros').clearFilters();"
+					disabled="#{controladorLivro.editandoAdicionando()}"
+				>
+					<p:tooltip
+						for="buttonLimparFiltros"
+						value="Limpar filtros"
+						showEffect="clip"
+						hideEffect="clip"
+					/>
+				</p:button>
+			</p:outputPanel>
+		</f:facet>
+		<p:column
+			headerText="ISBN"
+			filterMatchMode="contains"
+			filterBy="#{livro.isbn}"
+		>
+			<h:outputText value="#{livro.isbn}" />
+		</p:column>
+		<p:column
+			headerText="Título"
+			filterBy="#{livro.titulo}"
+			filterMatchMode="contains"
+			filterable="false"
+		>
+			<h:outputText value="#{livro.titulo}" />
+		</p:column>
+		<p:column
+			headerText="Autor"
+			filterMatchMode="contains"
+			filterBy="#{livro.autor}"
+			filterable="false"
+		>
+			<h:outputText value="#{livro.autor}" />
+		</p:column>
+	</p:dataTable>
+</ui:composition>
+</html>
